@@ -1038,7 +1038,7 @@ body{
   <i class="fa-solid fa-repeat"></i>
 
 </button>
-  <footer class="footer">
+  <footer class="footer" hidden>
 
   <div class="social-links">
 
@@ -2302,6 +2302,9 @@ async function loadCaptionPage() {
         "⚠️ Captions could not be loaded. Please check your internet connection or Firebase settings."
     );
 
+} finally {
+    // Show social links and Made by Rifat only after Firebase loading finishes.
+    document.querySelector(".footer").hidden = false;
 }
 }
 
