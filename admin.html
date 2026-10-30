@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#fff0f7">
+<title> Combined Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{min-height:100%;background:#fff7fc}
+body{margin:0;min-height:100vh;font-family:"Noto Sans Bengali",system-ui,sans-serif;color:#614661;background:linear-gradient(145deg,#fff7fb 0%,#f8f3ff 58%,#fff0f6 100%);}
+.admin-switcher{position:sticky;top:0;z-index:9999;padding:10px 12px;background:#fff9fce8;border-bottom:1px solid #f2dce9;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.admin-switcher-inner{max-width:1000px;margin:auto;display:flex;gap:9px;align-items:center}
+.admin-brand{font-size:12px;font-weight:900;letter-spacing:1px;color:#9e6595;white-space:nowrap;margin-right:auto}
+.admin-tab{appearance:none;border:1px solid #efd9e9;border-radius:14px;padding:11px 15px;background:#fff;color:#a65389;font:800 13px "Noto Sans Bengali",sans-serif;cursor:pointer;white-space:nowrap;box-shadow:0 3px 10px #b78caf10}
+.admin-tab.active{border-color:transparent;color:#fff;background:linear-gradient(135deg,#e88bb8,#a695e8);box-shadow:0 5px 14px #d9a2ca45}
+.admin-panel{display:none;min-height:calc(100vh - 62px)}
+.admin-panel.active{display:block}
+.admin-panel .wrap{width:100%}
+@media(max-width:480px){.admin-switcher{padding:8px}.admin-switcher-inner{gap:7px}.admin-brand{font-size:10px;letter-spacing:.5px}.admin-tab{padding:10px 11px;font-size:12px}}
+</style>
+<style>
+.poetry-panel{--text:#614661;--muted:#a18aa2;--pink:#e88bb8;--purple:#a695e8;--line:#f0dbea;--glass:#ffffffc7}
+.poetry-panel *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+.poetry-panel{margin:0;min-height:100vh;font-family:"Noto Sans Bengali",system-ui,sans-serif;color:var(--text);background:linear-gradient(145deg,#fff7fb 0%,#f8f3ff 58%,#fff0f6 100%);}
+.poetry-panel button, .poetry-panel input, .poetry-panel textarea, .poetry-panel select{font:inherit}.poetry-panel button{cursor:pointer}
+.poetry-panel .wrap{max-width:980px;margin:auto;padding:17px 13px 40px}
+.poetry-panel .top{display:flex;align-items:center;gap:11px;padding:12px;border:1px solid #ffffffd9;border-radius:20px;background:#ffffff85;box-shadow:0 3px 10px #b78caf0c}
+.poetry-panel .mark{display:grid;place-items:center;width:42px;height:42px;border-radius:15px 15px 15px 5px;background:linear-gradient(145deg,#f3b0d0,#b3a0f0);color:white;font-size:21px;box-shadow:0 5px 14px #d9a2ca45}
+.poetry-panel .brand{font-size:12px;font-weight:900;letter-spacing:1.8px;color:#a16e9e}.poetry-panel .sub{font-size:11px;color:var(--muted);margin-top:3px}
+.poetry-panel .pill{margin-left:auto;border:1px solid #f0dbea;background:#fff8fc;border-radius:30px;padding:7px 10px;color:#a65389;font-size:10px;font-weight:850}
+.poetry-panel .hero{position:relative;overflow:hidden;margin-top:16px;padding:22px 19px;border-radius:24px;color:#fff;background:linear-gradient(120deg,#d87fab,#a695e8 72%,#8cced0);box-shadow:0 4px 12px #ba8bb715}
+.poetry-panel .hero:after{content:"♡ ✧ ᥫ᭡";position:absolute;right:12px;bottom:-3px;font-size:35px;letter-spacing:6px;opacity:.18}
+.poetry-panel .hero h1{position:relative;z-index:1;margin:0;font-size:clamp(22px,5vw,31px);line-height:1.4}.poetry-panel .hero p{position:relative;z-index:1;margin:7px 0 0;font-size:12px;line-height:1.8;opacity:.92;max-width:600px}
+.poetry-panel .stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-top:12px}
+.poetry-panel .stat{padding:13px 10px;border:1px solid #ffffffd9;border-radius:17px;background:#ffffffa8;box-shadow:0 2px 8px #b78caf08}
+.poetry-panel .stat span{display:block;color:var(--muted);font-size:10px;font-weight:750}.poetry-panel .stat strong{display:block;margin-top:4px;font-size:22px;color:#a65389}
+.poetry-panel .card{margin-top:14px;padding:17px;border:1px solid #ffffffd9;border-radius:22px;background:var(--glass);box-shadow:0 3px 10px #b78caf0a;}
+.poetry-panel h2{margin:0 0 12px;font-size:17px}.poetry-panel .muted{color:var(--muted);font-size:12px;line-height:1.8}
+.poetry-panel label{display:block;margin:13px 0 6px;font-size:12px;font-weight:800;color:#96668f}
+.poetry-panel input, .poetry-panel textarea, .poetry-panel select{display:block;width:100%;border:1px solid var(--line);border-radius:13px;background:#fffafd;padding:12px;color:var(--text);outline:none;min-width:0}
+.poetry-panel input:focus, .poetry-panel textarea:focus, .poetry-panel select:focus{border-color:#d99bc2;box-shadow:0 0 0 3px #f9e4f0}
+.poetry-panel textarea{min-height:190px;resize:vertical;line-height:1.9}
+.poetry-panel .btn{border:0;border-radius:13px;padding:11px 15px;font-weight:800;background:linear-gradient(135deg,#f0a6ca,#b9a7f0);color:white;box-shadow:0 5px 13px #d9a2ca20}
+.poetry-panel .btn:active{transform:scale(.98)}.poetry-panel .btn:disabled{opacity:.55;cursor:not-allowed}.poetry-panel .btn.secondary{background:#fff0f7;color:#a65389;border:1px solid #f1d9e9;box-shadow:none}.poetry-panel .btn.danger{background:#fff0f1;color:#b24f68;border:1px solid #f3cbd2;box-shadow:none}.poetry-panel .btn.small{padding:8px 11px;font-size:12px}
+.poetry-panel .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.poetry-panel .notice{display:none;margin-top:12px;padding:11px 12px;border-radius:12px;font-size:12px;line-height:1.7;white-space:pre-wrap}.poetry-panel .notice.show{display:block}.poetry-panel .notice.ok{background:#eaf8f0;color:#28754c}.poetry-panel .notice.err{background:#fff0f1;color:#a83c54}.poetry-panel .notice.info{background:#fff5df;color:#8a6425}
+.poetry-panel .hidden{display:none!important}
+.poetry-panel .layout{display:grid;grid-template-columns:minmax(0,1fr);gap:14px}
+.poetry-panel .two{display:grid;grid-template-columns:minmax(0,1fr);gap:0 12px}
+.poetry-panel .preview-wrap{margin-top:13px;padding:13px;border:1px dashed #e6c9df;border-radius:18px;background:#fff8fc}
+.poetry-panel .preview-label{font-size:10px;font-weight:900;letter-spacing:1.5px;color:#b16e9c;margin-bottom:9px}
+.poetry-panel .preview-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.poetry-panel .design-preview{--c:#f06eaa;--l:#ffe1ef;--i:#a33e71;position:relative;display:flex;align-items:center;justify-content:center;flex-direction:column;min-height:105px;padding:9px 5px;overflow:hidden;border:1px solid color-mix(in srgb,var(--c) 24%,white);border-radius:19px 19px 19px 7px;background:radial-gradient(circle at 100% 0%,#ffffffd9,transparent 48%),linear-gradient(145deg,var(--l),#ffffffc7);color:var(--i);text-align:center;transition:transform .18s,box-shadow .18s}
+.poetry-panel .design-preview.selected{outline:2px solid #b16e9c;outline-offset:2px;box-shadow:0 0 0 5px #f8e2ef}
+.poetry-panel .design-preview .d-icon{display:grid;place-items:center;width:35px;height:35px;margin-bottom:6px;border:1px solid #ffffffd9;border-radius:12px;background:#ffffffa8;font-size:20px}
+.poetry-panel .design-preview .d-num{font-size:9px;font-weight:900;background:#ffffffa8;padding:2px 6px;border-radius:20px;margin-bottom:4px}
+.poetry-panel .design-preview .d-name{font-size:10px;font-weight:850;line-height:1.5;overflow-wrap:anywhere}
+.poetry-panel .design-preview:after{content:"";position:absolute;bottom:4px;left:12px;right:12px;height:2px;border-radius:4px;background:var(--c);opacity:.35}
+.poetry-panel .d0{--c:#f06eaa;--l:#ffe1ef;--i:#a33e71;border-radius:20px 20px 20px 8px}.poetry-panel .d1{--c:#9a7cf0;--l:#e9e1ff;--i:#624ba8;border-radius:8px 20px 8px 20px}.poetry-panel .d2{--c:#36bda0;--l:#d9f8ef;--i:#267c69;border-radius:20px 8px 20px 20px}.poetry-panel .d3{--c:#f2ad4e;--l:#fff0d4;--i:#98631f;border-radius:20px}.poetry-panel .d4{--c:#599df3;--l:#deedff;--i:#386da9;border-radius:23px 12px 23px 12px}.poetry-panel .d5{--c:#d779dc;--l:#f7dffc;--i:#934594;border-radius:12px 23px 12px 23px}.poetry-panel .d6{--c:#e994a0;--l:#fff0f1;--i:#ad5968;border-radius:25px 12px 25px 12px}.poetry-panel .d7{--c:#85c7d5;--l:#ebfbff;--i:#438d9c;border-radius:12px 25px 12px 25px}.poetry-panel .d8{--c:#8ecb91;--l:#effbef;--i:#4b9253;border-radius:18px 18px 7px 18px}.poetry-panel .d9{--c:#b6a0df;--l:#f5efff;--i:#7b62aa;border-radius:7px 18px 18px 18px}.poetry-panel .d10{--c:#e6a0ce;--l:#fff0fa;--i:#a65389;border-radius:24px 9px 24px 9px}.poetry-panel .d11{--c:#d6ad78;--l:#fff6e9;--i:#966b39;border-radius:9px 24px 9px 24px}.poetry-panel .d12{--c:#f28b82;--l:#fff0ed;--i:#a64c47;border-radius:26px 26px 10px 26px}.poetry-panel .d13{--c:#7dceaa;--l:#e8fff3;--i:#347c5d;border-radius:10px 26px 26px 26px}.poetry-panel .d14{--c:#7ea6f8;--l:#edf2ff;--i:#405f9e;border-radius:26px 10px 26px 10px}.poetry-panel .d15{--c:#f2a6b3;--l:#fff0f3;--i:#a44f65;border-radius:30px 30px 20px 20px}.poetry-panel .d16{--c:#c3a0f5;--l:#f4ecff;--i:#7953a8;border-radius:16px 28px 16px 28px}.poetry-panel .d17{--c:#70c9d8;--l:#e8fbff;--i:#347d8b;border-radius:28px 16px 28px 16px}.poetry-panel .d18{--c:#e7bb5b;--l:#fff8df;--i:#967326;border-radius:12px 12px 28px 28px}.poetry-panel .d19{--c:#ed9ed7;--l:#fff0fb;--i:#a64f8c;border-radius:28px 8px 28px 8px}.poetry-panel .d20{--c:#a5b4fc;--l:#eef0ff;--i:#555fa5;border-radius:20px 20px 5px 20px}.poetry-panel .d21{--c:#9bcf75;--l:#f2ffe7;--i:#557d32;border-radius:5px 20px 20px 20px}.poetry-panel .d22{--c:#f0b18b;--l:#fff2e8;--i:#a56640;border-radius:24px 24px 24px 4px}.poetry-panel .d23{--c:#a6a6b8;--l:#f2f2f8;--i:#62627c;border-radius:14px 24px 14px 24px}
+.poetry-panel .toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 12px}.poetry-panel .toolbar input{flex:1;min-width:150px}
+.poetry-panel .list{display:grid;gap:10px}.poetry-panel .poem{padding:13px;border:1px solid #f0deeb;border-radius:17px;background:#fffafd}
+.poetry-panel .poem-head{display:flex;gap:10px;align-items:flex-start}.poetry-panel .serial{display:grid;place-items:center;flex:0 0 39px;height:39px;border-radius:13px;background:#fff0f7;color:#a65389;font-size:12px;font-weight:900}
+.poetry-panel .poem-title{font-weight:850;overflow-wrap:anywhere}.poetry-panel .poem-meta{font-size:11px;color:var(--muted);margin-top:5px;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.8}
+.poetry-panel .poem-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.poetry-panel .row{display:flex;justify-content:space-between;align-items:center;gap:10px}.poetry-panel .row h2{margin:0}
+.poetry-panel .progress{height:5px;border-radius:8px;background:#f5e6f0;overflow:hidden;margin-top:10px}.poetry-panel .progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,#e88bb8,#a695e8);transition:width .2s}
+.poetry-panel .footer{text-align:center;padding:22px 8px}
+@media(min-width:620px){.poetry-panel .wrap{padding:25px 22px 45px}.poetry-panel .card{padding:22px}.poetry-panel .two{grid-template-columns:repeat(2,minmax(0,1fr))}.poetry-panel .layout{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr)}.poetry-panel .editor-card{grid-column:1}.poetry-panel .list-card{grid-column:2;grid-row:1 / span 2;align-self:start}.poetry-panel .preview-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(min-width:850px){.poetry-panel .preview-grid{grid-template-columns:repeat(6,minmax(0,1fr))}.poetry-panel .design-preview{min-height:115px}}
+@media(max-width:360px){.poetry-panel .stats{gap:6px}.poetry-panel .stat{padding:11px 7px}.poetry-panel .stat strong{font-size:19px}.poetry-panel .card{padding:14px}.poetry-panel .preview-grid{gap:6px}.poetry-panel .design-preview{min-height:96px}}
+@media(prefers-reduced-motion:reduce){.poetry-panel *, .poetry-panel *::before, .poetry-panel *::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+</style>
+<style>
+.caption-panel{--p:#d889b6;--p2:#a98fe8;--bg:#fff7fc;--text:#634c63;--muted:#9b879b;--line:#eedbea}
+.caption-panel *{box-sizing:border-box}.caption-panel{margin:0;font-family:Arial,"Noto Sans Bengali",sans-serif;color:var(--text);background:linear-gradient(135deg,#fff7fc,#f5f0ff);min-height:100vh}
+.caption-panel .wrap{max-width:1000px;margin:auto;padding:18px}.caption-panel .top, .caption-panel .card{background:#ffffffcc;border:1px solid #fff;border-radius:20px;box-shadow:0 3px 10px #8f6d9d0c;}
+.caption-panel .top{padding:15px;display:flex;align-items:center;gap:10px}.caption-panel .logo{width:42px;height:42px;display:grid;place-items:center;border-radius:14px;background:linear-gradient(135deg,#eea6cb,#aa98eb);color:white;font-size:21px}.caption-panel .brand{font-weight:900;color:#a35d91}.caption-panel .sub{font-size:11px;color:var(--muted);margin-top:3px}.caption-panel .badge{margin-left:auto;padding:7px 10px;border-radius:20px;background:#fff0f8;color:#a65389;font-size:10px;font-weight:800}
+.caption-panel .hero{margin-top:14px;padding:22px;border-radius:22px;background:linear-gradient(120deg,#d883ad,#a494e8);color:white}.caption-panel .hero h1{margin:0;font-size:25px}.caption-panel .hero p{margin:7px 0 0;font-size:12px;line-height:1.7}
+.caption-panel .card{margin-top:14px;padding:18px}.caption-panel h2{margin:0 0 8px;font-size:18px}.caption-panel .muted{color:var(--muted);font-size:12px;line-height:1.7}
+.caption-panel .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.caption-panel .field{margin-top:12px}.caption-panel label{display:block;font-size:12px;font-weight:800;margin-bottom:6px;color:#8d6388}
+.caption-panel input, .caption-panel textarea, .caption-panel select{width:100%;padding:12px;border:1px solid var(--line);border-radius:12px;background:#fffafd;color:var(--text);outline:none}.caption-panel textarea{min-height:150px;resize:vertical;line-height:1.8}
+.caption-panel input:focus, .caption-panel textarea:focus, .caption-panel select:focus{border-color:#d99bc2;box-shadow:0 0 0 3px #fae8f2}
+.caption-panel .btn{border:0;border-radius:12px;padding:10px 14px;font-weight:800;cursor:pointer;background:linear-gradient(135deg,#eea1c8,#aa98eb);color:white}.caption-panel .btn.alt{background:#fff0f7;color:#a65389;border:1px solid #f0d9e8}.caption-panel .btn.danger{background:#fff0f1;color:#b14d65;border:1px solid #f1ccd4}.caption-panel .btn.small{padding:8px 11px;font-size:12px}.caption-panel .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.caption-panel .notice{display:none;margin-top:12px;padding:11px;border-radius:12px;font-size:12px;white-space:pre-wrap}.caption-panel .notice.show{display:block}.caption-panel .ok{background:#eaf8f0;color:#28754c}.caption-panel .err{background:#fff0f1;color:#a83c54}.caption-panel .info{background:#fff5df;color:#86601f}.caption-panel .hidden{display:none!important}
+.caption-panel .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}.caption-panel .stat{padding:12px;border-radius:15px;background:#fff;border:1px solid var(--line)}.caption-panel .stat span{font-size:10px;color:var(--muted)}.caption-panel .stat strong{display:block;font-size:21px;color:#a65389;margin-top:3px}
+.caption-panel .item{padding:13px;border:1px solid var(--line);border-radius:15px;background:#fff;margin-top:9px}.caption-panel .item-title{font-weight:800}.caption-panel .item-meta{font-size:11px;color:var(--muted);margin-top:4px;line-height:1.7}.caption-panel .item-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}
+.caption-panel .search{margin-top:10px}.caption-panel .filter-btn{border:1px solid #f0d9e8;border-radius:999px;padding:8px 12px;background:#fff;color:#a65389;font-weight:800;cursor:pointer;font-size:11px}.caption-panel .filter-btn.active{background:linear-gradient(135deg,#eea1c8,#aa98eb);color:#fff;border-color:transparent}.caption-panel .empty{padding:22px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:14px}
+@media(max-width:680px){.caption-panel .grid{grid-template-columns:1fr}.caption-panel .stats{grid-template-columns:1fr 1fr 1fr}.caption-panel .wrap{padding:12px}.caption-panel .card{padding:14px}}
+</style>
+</head>
+<body>
+<nav class="admin-switcher" aria-label="Admin sections"><div class="admin-switcher-inner">
+<div class="admin-brand">MR WORLD · ADMIN</div>
+<button class="admin-tab active" type="button" data-panel="caption-panel">Caption Section</button>
+<button class="admin-tab" type="button" data-panel="poetry-panel">কবিতা Section</button>
+</div></nav>
+<section id="caption-panel" class="admin-panel caption-panel active">
+<div class="wrap">
+<header class="top"><div class="logo">✦</div><div><div class="brand">MR WORLD</div><div class="sub">CAPTION &amp; FOLDER ADMIN</div></div><div class="badge">PRIVATE ADMIN</div></header>
+<section class="hero"><h1>Caption Page Control ♡</h1><p>এখানে শুরুতে কোনো Folder বা Caption রাখা নেই। তুমি পরে নিজে Folder তৈরি করবে, তারপর সেই Folder-এর মধ্যে Caption add করবে।</p></section>
+<section class="card" id="cap-loginCard">
+<h2>Admin Login</h2><p class="muted">তোমার Firebase Admin account দিয়ে login করো।</p>
+<form id="cap-loginForm"><div class="field"><label>Email</label><input id="cap-email" required="" type="email"/></div><div class="field"><label>Password</label><input id="cap-password" required="" type="password"/></div><div class="actions"><button class="btn" id="cap-loginBtn">Login</button></div></form>
+<div class="notice" id="cap-loginNotice"></div>
+</section>
+<div class="hidden" id="cap-dashboard">
+<div class="stats"><div class="stat"><span>Folder</span><strong id="cap-folderCount">0</strong></div><div class="stat"><span>Caption</span><strong id="cap-captionCount">0</strong></div><div class="stat"><span>Changes</span><strong id="cap-changeCount">0</strong></div></div>
+<section class="grid">
+<section class="card">
+<h2>📁 Folder Control</h2><p class="muted">দেখাবে নতুন → পুরোনো, কিন্তু serial থাকবে প্রথমে যোগ করা Folder = 1, এরপর 2, 3...</p>
+<form id="cap-folderForm"><input id="cap-folderId" type="hidden"/>
+<div class="field"><label>Folder Name</label><input id="cap-folderName" maxlength="80" placeholder="যেমন: Love Caption" required=""/></div>
+<div class="field"><label>Folder Emoji</label><input id="cap-folderEmoji" maxlength="8" placeholder="💖" value="💖"/></div>
+<div class="actions"><button class="btn" id="cap-folderSave">Folder Add করো</button><button class="btn alt hidden" id="cap-folderCancel" type="button">Cancel Edit</button></div>
+</form><div class="notice" id="cap-folderNotice"></div>
+<div id="cap-folderList" style="margin-top:12px"></div>
+</section>
+<section class="card">
+<h2>✍️ Caption Control</h2><p class="muted">দেখাবে নতুন → পুরোনো, কিন্তু serial থাকবে প্রথমে যোগ করা Caption = 1, এরপর 2, 3...</p>
+<form id="cap-captionForm"><input id="cap-captionId" type="hidden"/>
+<div class="field"><label>Folder</label><select id="cap-captionFolder" required=""><option value="">-- আগে Folder তৈরি করো --</option></select></div>
+<div class="field"><label>Caption Title</label><input id="cap-captionTitle" maxlength="180" placeholder="Caption title" required=""/></div>
+<div class="field"><label>Caption Text</label><textarea id="cap-captionText" maxlength="30000" placeholder="তোমার caption লিখো..." required=""></textarea></div>
+<div class="actions"><button class="btn" id="cap-captionSave">Caption Add করো</button><button class="btn alt hidden" id="cap-captionCancel" type="button">Cancel Edit</button></div>
+</form><div class="notice" id="cap-captionNotice"></div>
+</section>
+</section>
+<section class="card">
+<div style="display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap"><h2>📚 Caption Library</h2><div class="actions" style="margin:0"><button class="btn alt small" id="cap-refreshBtn">↻ Refresh</button><button class="btn alt small" id="cap-logoutBtn">Logout</button></div></div>
+<div class="actions" id="cap-captionFilters" style="margin-top:12px"></div>
+<input class="search" id="cap-search" placeholder="Caption খুঁজো..."/>
+<div id="cap-captionList"></div>
+</section>
+</div>
+</div>
+
+</section>
+<section id="poetry-panel" class="admin-panel poetry-panel">
+<main class="wrap">
+<header class="top">
+<span class="mark">✦</span><div><div class="brand">MR WORLD</div><div class="sub">POETRY ADMIN STUDIO · 24 DESIGNS</div></div>
+<span class="pill">PRIVATE ADMIN</span>
+</header>
+<section class="hero">
+<h1>তোমার অনুভূতির নিজস্ব স্টুডিও ♡</h1>
+<p>কবিতা সাজাও, ডিজাইন বেছে নাও, পৃষ্ঠার ক্রম ঠিক রাখো। সব পরিবর্তন Firebase-এ সেভ হবে এবং পাবলিক পেজে দেখা যাবে।</p>
+</section>
+<section class="card" id="poem-loginCard">
+<h2>Admin Login ♡</h2><p class="muted">Firebase Authentication-এ তৈরি Admin Email ও Password দিয়ে লগইন করো।</p>
+<form id="poem-loginForm">
+<label for="poem-email">Admin Email</label><input autocomplete="username" id="poem-email" placeholder="তোমার email" required="" type="email"/>
+<label for="poem-password">Password</label><input autocomplete="current-password" id="poem-password" placeholder="তোমার password" required="" type="password"/>
+<div class="actions"><button class="btn" id="poem-loginBtn" type="submit">Login</button></div>
+</form><div class="notice" id="poem-loginNotice" role="status"></div>
+</section>
+<div class="hidden" id="poem-dashboard">
+<section class="stats">
+<div class="stat"><span>মোট কবিতা</span><strong id="poem-statTotal">০</strong></div>
+<div class="stat"><span>সর্বশেষ পৃষ্ঠা</span><strong id="poem-statPages">০</strong></div>
+<div class="stat"><span>এই সেশনে পরিবর্তন</span><strong id="poem-statChanges">০</strong></div>
+</section>
+<div class="layout">
+<section class="card editor-card">
+<div class="row"><h2 id="poem-formHeading">নতুন কবিতা তৈরি করো</h2><span class="pill" id="poem-editBadge">NEW PAGE</span></div>
+<p class="muted">একটি কবিতার শিরোনাম, লেখা, তারিখ, পৃষ্ঠা ও ফোল্ডার ডিজাইন এখানে নিয়ন্ত্রণ করো।</p>
+<form id="poem-poemForm">
+<label for="poem-poemTitle">কবিতার শিরোনাম</label><input id="poem-poemTitle" maxlength="180" placeholder="যেমন: নীরব অনুভূতি" required=""/>
+<label for="poem-poemText">কবিতা</label><textarea id="poem-poemText" maxlength="30000" placeholder="তোমার কবিতা এখানে লেখো…" required=""></textarea>
+<div class="row"><span class="muted" id="poem-charCount">০ / ৩০,০০০ অক্ষর</span><span class="muted" id="poem-wordCount">০ শব্দ</span></div>
+<div class="progress"><span id="poem-textProgress"></span></div>
+<div class="two">
+<div><label for="poem-poemDate">তারিখ</label><input id="poem-poemDate" type="date"/></div>
+<div><label for="poem-poemPageNumber">পৃষ্ঠা নম্বর</label><input id="poem-poemPageNumber" min="1" placeholder="Auto" step="1" type="number"/></div>
+</div>
+<div class="two">
+<div><label for="poem-poemEmoji">ফোল্ডার Emoji</label><input id="poem-poemEmoji" maxlength="12" placeholder="🌙" value="🌸"/></div>
+<div><label for="poem-poemDecoration">ডেকোরেশন</label><input id="poem-poemDecoration" maxlength="24" placeholder="♡ ✧ ♡" value="✨"/></div>
+</div>
+<label for="poem-poemTheme">ফোল্ডার ডিজাইন — ২৪টি</label>
+<select id="poem-poemTheme">
+<option value="0">01 · Rose Heart</option><option value="1">02 · Lavender Wave</option><option value="2">03 · Mint Garden</option><option value="3">04 · Golden Glow</option><option value="4">05 · Sky Letter</option><option value="5">06 · Lilac Dream</option><option value="6">07 · Blush Petal</option><option value="7">08 · Ocean Mist</option><option value="8">09 · Green Meadow</option><option value="9">10 · Violet Cloud</option><option value="10">11 · Pink Silk</option><option value="11">12 · Peach Memory</option>
+<option value="12">13 · Coral Bloom ✦ NEW</option><option value="13">14 · Mint Breeze ✦ NEW</option><option value="14">15 · Blue Horizon ✦ NEW</option><option value="15">16 · Ribbon Heart ✦ NEW</option><option value="16">17 · Amethyst ✦ NEW</option><option value="17">18 · Sea Glass ✦ NEW</option><option value="18">19 · Honey Moon ✦ NEW</option><option value="19">20 · Candy Cloud ✦ NEW</option><option value="20">21 · Periwinkle ✦ NEW</option><option value="21">22 · Spring Leaf ✦ NEW</option><option value="22">23 · Peach Letter ✦ NEW</option><option value="23">24 · Silver Dream ✦ NEW</option>
+</select>
+<div class="preview-wrap"><div class="preview-label">LIVE FOLDER PREVIEW · ডিজাইন বেছে নিতে কার্ডে চাপ দাও</div><div class="preview-grid" id="poem-designPreview"></div></div>
+<p class="muted">পৃষ্ঠা নম্বর খালি রাখলে নতুন কবিতা সর্বোচ্চ বর্তমান পৃষ্ঠার পরের নম্বর পাবে। পুরোনো কবিতা Edit করলে তার নম্বর অপরিবর্তিত থাকবে, যদি না তুমি নিজে বদলাও।</p>
+<div class="actions"><button class="btn" id="poem-saveBtn" type="submit">কবিতা Save করো</button><button class="btn secondary hidden" id="poem-cancelEditBtn" type="button">Edit বাতিল</button><button class="btn secondary" id="poem-clearDraftBtn" type="button">ফর্ম পরিষ্কার</button></div>
+</form><div class="notice" id="poem-appNotice" role="status"></div>
+</section>
+<section class="card list-card">
+<div class="row"><h2>কবিতা লাইব্রেরি</h2><div class="actions" style="margin:0"><button class="btn secondary small" id="poem-refreshBtn" type="button">↻ Refresh</button><button class="btn secondary small" id="poem-logoutBtn" type="button">Logout</button></div></div>
+<div class="toolbar"><input id="poem-searchPoems" placeholder="শিরোনাম বা লেখা খুঁজো…" type="search"/><select aria-label="Sort poems" id="poem-sortMode"><option value="pageAsc">পৃষ্ঠা: ছোট থেকে বড়</option><option value="pageDesc">পৃষ্ঠা: বড় থেকে ছোট</option><option value="dateDesc">তারিখ: নতুন আগে</option><option value="titleAsc">শিরোনাম: A–Z</option></select></div>
+<p class="muted">এখানে পৃষ্ঠা অনুযায়ী সিরিয়াল দেখানো হবে। Public page-এও পৃষ্ঠা নম্বরের ভিত্তিতে সাজানো থাকবে।</p>
+<div class="list" id="poem-poemList"><p class="muted">কবিতা লোড হচ্ছে…</p></div>
+</section>
+</div>
+</div>
+<footer class="muted footer">Made with <span style="color:#df83b0">❣</span> by RIFAT · MR WORLD</footer>
+</main>
+
+</section>
+<script>
+(function(){
+ const tabs=[...document.querySelectorAll('.admin-tab')];
+ const panels=[...document.querySelectorAll('.admin-panel')];
+ function activate(id){
+   panels.forEach(p=>p.classList.toggle('active',p.id===id));
+   tabs.forEach(t=>{const on=t.dataset.panel===id;t.classList.toggle('active',on);t.setAttribute('aria-selected',String(on));});
+ }
+ tabs.forEach(t=>t.addEventListener('click',()=>activate(t.dataset.panel)));
+})();
+</script>
+<script type="module">
+import {getApps,getApp,initializeApp} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+import {getFirestore,collection,getDocs,addDoc,updateDoc,deleteDoc,doc,serverTimestamp} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+import {getAuth,onAuthStateChanged,signInWithEmailAndPassword,signOut} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+
+const firebaseConfig={apiKey:"AIzaSyBc1EP0Z4aXq9hOjjImY4HNF7hDsxLoVU4",authDomain:"world-poetry-f8a06.firebaseapp.com",projectId:"world-poetry-f8a06",storageBucket:"world-poetry-f8a06.firebasestorage.app",messagingSenderId:"112670737432",appId:"1:112670737432:web:2b9bbb1e41fcfeb5506f6d"};
+const ADMIN_UID="8pNW4Uy8SXfWbr7PSpZNLnbFwCa2";
+const app=getApps().length?getApp():initializeApp(firebaseConfig),db=getFirestore(app),auth=getAuth(app);
+const $=id=>document.getElementById(id);
+let folders=[],captions=[],changes=0,activeCaptionFolder="all";
+
+function note(el,msg,type="info"){el.textContent=msg;el.className="notice show "+type}
+function errorText(e){return e?.message||"কাজটি করা যায়নি।"}
+function resetFolder(){ $("cap-folderId").value="";$("cap-folderName").value="";$("cap-folderEmoji").value="💖";$("cap-folderSave").textContent="Folder Add করো";$("cap-folderCancel").classList.add("hidden")}
+function resetCaption(){ $("cap-captionId").value="";$("cap-captionTitle").value="";$("cap-captionText").value="";$("cap-captionFolder").value=folders[0]?.id||"";$("cap-captionSave").textContent="Caption Add করো";$("cap-captionCancel").classList.add("hidden")}
+function stats(){$("cap-folderCount").textContent=folders.length;$("cap-captionCount").textContent=captions.length;$("cap-changeCount").textContent=changes}
+function fillFolders(){const s=$("cap-captionFolder"),old=s.value;s.innerHTML='<option value="">-- Folder select করো --</option>';folders.forEach(f=>{const o=document.createElement("option");o.value=f.id;o.textContent=(f.emoji||"📁")+" "+f.name;s.appendChild(o)});if(folders.some(f=>f.id===old))s.value=old}
+async function load(){
+ try{
+  const [fs,cs]=await Promise.all([getDocs(collection(db,"captionFolders")),getDocs(collection(db,"captions"))]);
+  folders=fs.docs.map(d=>({id:d.id,...d.data(),order:Number(d.data().order)||0,createdAt:d.data().createdAt||null}));
+  captions=cs.docs.map(d=>({id:d.id,...d.data(),order:Number(d.data().order)||0,createdAt:d.data().createdAt||null}));
+  folders.sort((a,b)=>{
+   if(a.order&&b.order&&a.order!==b.order)return b.order-a.order;
+   return (b.createdAt?.seconds||0)-(a.createdAt?.seconds||0);
+  });
+  captions.sort((a,b)=>{
+   if(a.order&&b.order&&a.order!==b.order)return b.order-a.order;
+   return (b.createdAt?.seconds||0)-(a.createdAt?.seconds||0);
+  });
+  renderFolders();renderCaptionFilters();renderCaptions();fillFolders();stats();
+ }catch(e){note($("cap-captionNotice"),"Firebase load error: "+errorText(e),"err")}
+}
+function renderFolders(){
+ const box=$("cap-folderList");box.innerHTML="";
+ if(!folders.length){box.innerHTML='<div class="empty">এখনো কোনো Folder নেই।<br>উপরে থেকে প্রথম Folder add করো।</div>';return}
+ folders.forEach(f=>{
+  const x=document.createElement("div");x.className="item";
+  x.innerHTML=`<div class="item-title">Folder ${Number(f.order)||1} — ${f.emoji||"📁"} ${escapeHtml(f.name)}</div><div class="item-meta">এই Folder-এর Caption: ${captions.filter(c=>c.folderId===f.id).length}</div>`;
+  const a=document.createElement("div");a.className="item-actions";
+  const ed=document.createElement("button");ed.className="btn alt small";ed.textContent="✎ Edit";ed.onclick=()=>{ $("cap-folderId").value=f.id;$("cap-folderName").value=f.name;$("cap-folderEmoji").value=f.emoji||"💖";$("cap-folderSave").textContent="Folder Update";$("cap-folderCancel").classList.remove("hidden")};
+  const de=document.createElement("button");de.className="btn danger small";de.textContent="Delete";de.onclick=async()=>{const n=captions.filter(c=>c.folderId===f.id).length;if(!confirm(n?`এই Folder-এর ${n}টি Caption আছে। Folder delete করলে Caption-গুলোও delete হবে। Continue?`:"Folder delete করবে?"))return;try{for(const c of captions.filter(c=>c.folderId===f.id))await deleteDoc(doc(db,"captions",c.id));await deleteDoc(doc(db,"captionFolders",f.id));changes++;await load();note($("cap-folderNotice"),"Folder delete হয়েছে।","ok")}catch(e){note($("cap-folderNotice"),errorText(e),"err")}};
+  a.append(ed,de);x.appendChild(a);box.appendChild(x)
+ })
+}
+function renderCaptionFilters(){
+ const box=$("cap-captionFilters"); if(!box)return; box.innerHTML="";
+ const names=[{id:"all",name:"All"},...folders.map(f=>({id:f.id,name:(f.emoji||"📁")+" "+f.name}))];
+ names.forEach(item=>{
+  const b=document.createElement("button"); b.type="button"; b.className="filter-btn"+(activeCaptionFolder===item.id?" active":""); b.textContent=item.name;
+  b.onclick=()=>{activeCaptionFolder=item.id;renderCaptionFilters();renderCaptions()}; box.appendChild(b);
+ });
+}
+
+function renderCaptions(){
+ const q=$("cap-search").value.trim().toLowerCase(),box=$("cap-captionList");box.innerHTML="";
+ const arr=captions.filter(c=>(activeCaptionFolder==="all"||c.folderId===activeCaptionFolder) && (String(c.title||"")+" "+String(c.text||"")).toLowerCase().includes(q));
+ if(!arr.length){box.innerHTML='<div class="empty">এখনো কোনো Caption নেই।<br>উপরে থেকে Caption add করো।</div>';return}
+ arr.forEach(c=>{
+  const f=folders.find(x=>x.id===c.folderId),x=document.createElement("div");x.className="item";
+  const folderCaps=captions.filter(z=>z.folderId===c.folderId).slice().sort((a,b)=>{
+     if(a.order&&b.order&&a.order!==b.order)return b.order-a.order;
+     return (b.createdAt?.seconds||0)-(a.createdAt?.seconds||0);
+   });
+   const captionNo=Number(c.order)||1;
+  x.innerHTML=`<div class="item-title">Caption No. ${captionNo} — ${escapeHtml(c.title||"Untitled")}</div><div class="item-meta">${f?(f.emoji||"📁")+" "+escapeHtml(f.name):"Folder নেই"}<br>${escapeHtml((c.text||"").slice(0,220))}${(c.text||"").length>220?"…":""}</div>`;
+  const a=document.createElement("div");a.className="item-actions";
+  const ed=document.createElement("button");ed.className="btn alt small";ed.textContent="✎ Edit";ed.onclick=()=>{$("cap-captionId").value=c.id;$("cap-captionFolder").value=c.folderId||"";$("cap-captionTitle").value=c.title||"";$("cap-captionText").value=c.text||"";$("cap-captionSave").textContent="Caption Update";$("cap-captionCancel").classList.remove("hidden");window.scrollTo({top:0,behavior:"smooth"})};
+  const de=document.createElement("button");de.className="btn danger small";de.textContent="Delete";de.onclick=async()=>{if(!confirm("এই Caption delete করবে?"))return;try{await deleteDoc(doc(db,"captions",c.id));changes++;await load();note($("cap-captionNotice"),"Caption delete হয়েছে।","ok")}catch(e){note($("cap-captionNotice"),errorText(e),"err")}};
+  a.append(ed,de);x.appendChild(a);box.appendChild(x)
+ })
+}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
+
+$("cap-folderForm").onsubmit=async e=>{e.preventDefault();if(!auth.currentUser)return;
+ const id=$("cap-folderId").value,name=$("cap-folderName").value.trim(),emoji=$("cap-folderEmoji").value.trim()||"📁";if(!name)return;
+ try{if(id)await updateDoc(doc(db,"captionFolders",id),{name,emoji,updatedAt:serverTimestamp()});else {
+  const order=folders.length?Math.max(...folders.map(f=>Number(f.order)||0))+1:1;
+  await addDoc(collection(db,"captionFolders"),{name,emoji,order,createdAt:serverTimestamp(),updatedAt:serverTimestamp()});
+}changes++;resetFolder();await load();note($("cap-folderNotice"),id?"Folder update হয়েছে।":"নতুন Folder add হয়েছে।","ok")}catch(e){note($("cap-folderNotice"),errorText(e),"err")}};
+$("cap-captionForm").onsubmit=async e=>{e.preventDefault();if(!auth.currentUser)return;
+ const id=$("cap-captionId").value,folderId=$("cap-captionFolder").value,title=$("cap-captionTitle").value.trim(),text=$("cap-captionText").value.trim();if(!folderId)return note($("cap-captionNotice"),"আগে একটি Folder select করো।","err");
+ try{
+  if(id){
+    const old=captions.find(c=>c.id===id);
+    let order=Number(old?.order)||1;
+    if(old && old.folderId!==folderId){
+      const same=captions.filter(c=>c.folderId===folderId);
+      order=same.length?Math.max(...same.map(c=>Number(c.order)||0))+1:1;
+    }
+    await updateDoc(doc(db,"captions",id),{folderId,title,text,order,updatedAt:serverTimestamp()});
+  }else{
+    const same=captions.filter(c=>c.folderId===folderId);
+    const order=same.length?Math.max(...same.map(c=>Number(c.order)||0))+1:1;
+    await addDoc(collection(db,"captions"),{folderId,title,text,order,createdAt:serverTimestamp(),updatedAt:serverTimestamp()});
+  }
+  changes++;resetCaption();await load();note($("cap-captionNotice"),id?"Caption update হয়েছে।":"নতুন Caption add হয়েছে।","ok")
+}catch(e){note($("cap-captionNotice"),errorText(e),"err")}};
+$("cap-folderCancel").onclick=resetFolder;$("cap-captionCancel").onclick=resetCaption;$("cap-search").oninput=renderCaptions;$("cap-refreshBtn").onclick=load;$("cap-logoutBtn").onclick=()=>signOut(auth);
+
+$("cap-loginForm").onsubmit=async e=>{e.preventDefault();$("cap-loginBtn").disabled=true;try{const r=await signInWithEmailAndPassword(auth,$("cap-email").value.trim(),$("cap-password").value);if(r.user.uid!==ADMIN_UID){await signOut(auth);note($("cap-loginNotice"),"এই account Admin নয়।","err")}}catch(e){note($("cap-loginNotice"),errorText(e),"err")}finally{$("cap-loginBtn").disabled=false}};
+onAuthStateChanged(auth,async u=>{if(u&&u.uid===ADMIN_UID){$("cap-loginCard").classList.add("hidden");$("cap-dashboard").classList.remove("hidden");await load()}else{$("cap-loginCard").classList.remove("hidden");$("cap-dashboard").classList.add("hidden")}});
+</script>
+<script type="module">
+import { getApps, getApp, initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+
+const firebaseConfig={apiKey:"AIzaSyBc1EP0Z4aXq9hOjjImY4HNF7hDsxLoVU4",authDomain:"world-poetry-f8a06.firebaseapp.com",projectId:"world-poetry-f8a06",storageBucket:"world-poetry-f8a06.firebasestorage.app",messagingSenderId:"112670737432",appId:"1:112670737432:web:2b9bbb1e41fcfeb5506f6d"};
+const ADMIN_UID="8pNW4Uy8SXfWbr7PSpZNLnbFwCa2";
+const app=getApps().length?getApp():initializeApp(firebaseConfig),db=getFirestore(app),auth=getAuth(app);
+const $=id=>document.getElementById(id);
+const loginCard=$("poem-loginCard"),dashboard=$("poem-dashboard"),loginForm=$("poem-loginForm"),loginBtn=$("poem-loginBtn"),loginNotice=$("poem-loginNotice"),appNotice=$("poem-appNotice"),poemForm=$("poem-poemForm"),poemList=$("poem-poemList"),saveBtn=$("poem-saveBtn"),cancelEditBtn=$("poem-cancelEditBtn");
+let editingId=null,poems=[],sessionChanges=0;
+const icons=["💌","💗","🦋","🌷","🌙","💜","🌸","✨","🪻","☁️","🩷","⭐","🕊️","🍃","🪞","🎀","🫧","🐚","☀️","🪷","🪄","🌿","🧸","🩶"];
+const names=["Rose Heart","Lavender Wave","Mint Garden","Golden Glow","Sky Letter","Lilac Dream","Blush Petal","Ocean Mist","Green Meadow","Violet Cloud","Pink Silk","Peach Memory","Coral Bloom","Mint Breeze","Blue Horizon","Ribbon Heart","Amethyst","Sea Glass","Honey Moon","Candy Cloud","Periwinkle","Spring Leaf","Peach Letter","Silver Dream"];
+const bnDigits=n=>String(n).replace(/\d/g,d=>"০১২৩৪৫৬৭৮৯"[Number(d)]);
+function notice(el,message,type="info"){el.textContent=message;el.className="notice show "+type}
+function clearNotice(el){el.textContent="";el.className="notice"}
+function dateToday(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`}
+$("poem-poemDate").value=dateToday();
+function errorText(error){const code=error?.code||"";const messages={"auth/invalid-credential":"Email বা Password ঠিক হয়নি।","auth/invalid-email":"Email address ঠিকভাবে লিখো।","auth/too-many-requests":"অনেকবার চেষ্টা হয়েছে। পরে চেষ্টা করো।","auth/network-request-failed":"ইন্টারনেট সংযোগ পরীক্ষা করো।","permission-denied":"Firestore Rules/UID যাচাই করো—write permission নেই।","unavailable":"Firebase সাময়িকভাবে পাওয়া যাচ্ছে না।"};return messages[code]||error?.message||"অজানা সমস্যা হয়েছে।"}
+function showSignedIn(isAdmin){loginCard.classList.toggle("hidden",isAdmin);dashboard.classList.toggle("hidden",!isAdmin)}
+function stamp(value){if(value&&typeof value.toDate==="function")return value.toDate().getTime();if(value&&typeof value.seconds==="number")return value.seconds*1000;const n=Date.parse(value||"");return Number.isNaN(n)?0:n}
+function pageOf(p){const n=Number(p.pageNumber);return Number.isInteger(n)&&n>0?n:0}
+function sortByPage(items){return [...items].sort((a,b)=>pageOf(a)-pageOf(b)||stamp(a.createdAt||a.date)-stamp(b.createdAt||b.date)||String(a.id).localeCompare(String(b.id)))}
+function renderDesignPreview(){
+ const wrap=$("poem-designPreview");wrap.replaceChildren();
+ names.forEach((name,i)=>{const card=document.createElement("button");card.type="button";card.className="design-preview d"+i+(Number($("poem-poemTheme").value)===i?" selected":"");card.innerHTML=`<span class="d-icon">${icons[i]}</span><span class="d-num">DESIGN ${String(i+1).padStart(2,"0")}</span><span class="d-name">${name}</span>`;card.addEventListener("click",()=>{$("poem-poemTheme").value=String(i);renderDesignPreview()});wrap.appendChild(card)});
+}
+$("poem-poemTheme").addEventListener("change",renderDesignPreview);
+function updateCounts(){const text=$("poem-poemText").value;const chars=text.length,words=text.trim()?text.trim().split(/\s+/).length:0;$("poem-charCount").textContent=`${bnDigits(chars)} / ৩০,০০০ অক্ষর`;$("poem-wordCount").textContent=`${bnDigits(words)} শব্দ`;$("poem-textProgress").style.width=Math.min(100,chars/30000*100)+"%"}
+$("poem-poemText").addEventListener("input",updateCounts);
+function resetForm(){editingId=null;poemForm.reset();$("poem-poemDate").value=dateToday();$("poem-poemEmoji").value="🌸";$("poem-poemDecoration").value="✨";$("poem-poemTheme").value="0";$("poem-poemPageNumber").value="";$("poem-formHeading").textContent="নতুন কবিতা তৈরি করো";$("poem-editBadge").textContent="NEW PAGE";saveBtn.textContent="কবিতা Save করো";cancelEditBtn.classList.add("hidden");clearNotice(appNotice);updateCounts();renderDesignPreview()}
+function updateStats(){const max=poems.reduce((m,p)=>Math.max(m,pageOf(p)),0);$("poem-statTotal").textContent=bnDigits(poems.length);$("poem-statPages").textContent=bnDigits(max);$("poem-statChanges").textContent=bnDigits(sessionChanges)}
+async function loadPoems(){
+ $("poem-refreshBtn").disabled=true;poemList.replaceChildren();const loading=document.createElement("p");loading.className="muted";loading.textContent="কবিতা লোড হচ্ছে…";poemList.appendChild(loading);
+ try{
+  const snap=await getDocs(collection(db,"poems"));let loaded=snap.docs.map(d=>({id:d.id,...d.data()}));
+  // Give legacy pages stable numbers, preserving all explicit page numbers.
+  const used=new Set(loaded.map(pageOf).filter(Boolean));
+  const missing=loaded.filter(p=>!pageOf(p)).sort((a,b)=>stamp(a.createdAt||a.date)-stamp(b.createdAt||b.date)||String(a.id).localeCompare(String(b.id)));
+  let next=1;
+  for(const p of missing){while(used.has(next))next++;p.pageNumber=next;used.add(next);next++}
+  // Persist migration in parallel, without making the page list depend on order of reads.
+  await Promise.all(missing.map(p=>updateDoc(doc(db,"poems",p.id),{pageNumber:p.pageNumber})));
+  poems=sortByPage(loaded);renderList();updateStats();
+ }catch(error){console.error(error);poemList.replaceChildren();const p=document.createElement("p");p.className="muted";p.textContent="কবিতা লোড হয়নি: "+errorText(error);poemList.appendChild(p)}
+ finally{$("poem-refreshBtn").disabled=false}
+}
+function renderList(){
+ const query=$("poem-searchPoems").value.trim().toLocaleLowerCase();const mode=$("poem-sortMode").value;
+ let shown=sortByPage(poems).filter(p=>(String(p.title||"")+" "+String(p.text||p.content||"")).toLocaleLowerCase().includes(query));
+ if(mode==="pageDesc")shown.reverse();
+ if(mode==="dateDesc")shown.sort((a,b)=>stamp(b.date||b.createdAt)-stamp(a.date||a.createdAt));
+ if(mode==="titleAsc")shown.sort((a,b)=>String(a.title||"").localeCompare(String(b.title||""),"bn"));
+ poemList.replaceChildren();
+ if(!shown.length){const p=document.createElement("p");p.className="muted";p.textContent=poems.length?"এই খোঁজে কোনো কবিতা পাওয়া যায়নি।":"এখনো কোনো কবিতা নেই। উপরের ফর্ম থেকে প্রথমটি যোগ করো।";poemList.appendChild(p);return}
+ shown.forEach(poem=>{
+  const card=document.createElement("article");card.className="poem";
+  const head=document.createElement("div");head.className="poem-head";
+  const serial=document.createElement("div");serial.className="serial";serial.textContent=bnDigits(String(pageOf(poem)).padStart(3,"0"));
+  const info=document.createElement("div");info.style.minWidth="0";info.style.flex="1";
+  const title=document.createElement("div");title.className="poem-title";title.textContent=(poem.emoji||"🌸")+" "+(poem.title||"নামহীন কবিতা");
+  const meta=document.createElement("div");meta.className="poem-meta";const body=String(poem.text||poem.content||"");
+  const theme=Number.isInteger(Number(poem.themeIndex))?Math.max(0,Math.min(23,Number(poem.themeIndex))):0;
+  meta.textContent=`পৃষ্ঠা ${bnDigits(pageOf(poem))} · Design ${String(theme+1).padStart(2,"0")} · ${names[theme]}\\n${poem.date||"তারিখ নেই"}\\n${body.slice(0,145)}${body.length>145?"…":""}`;
+  info.append(title,meta);head.append(serial,info);
+  const actions=document.createElement("div");actions.className="poem-actions";
+  const edit=document.createElement("button");edit.type="button";edit.className="btn secondary small";edit.textContent="✎ Edit";
+  edit.addEventListener("click",()=>{editingId=poem.id;$("poem-poemTitle").value=poem.title||"";$("poem-poemText").value=poem.text||poem.content||"";$("poem-poemDate").value=String(poem.date||dateToday()).slice(0,10);$("poem-poemEmoji").value=poem.emoji||"🌸";$("poem-poemDecoration").value=poem.decoration||"✨";$("poem-poemTheme").value=String(Math.max(0,Math.min(23,Number(poem.themeIndex)||0)));$("poem-poemPageNumber").value=poem.pageNumber||"";$("poem-formHeading").textContent="কবিতা সম্পাদনা করো";$("poem-editBadge").textContent="EDITING PAGE "+bnDigits(pageOf(poem));saveBtn.textContent="পরিবর্তন Save করো";cancelEditBtn.classList.remove("hidden");clearNotice(appNotice);updateCounts();renderDesignPreview();window.scrollTo({top:0,behavior:"smooth"})});
+  const del=document.createElement("button");del.type="button";del.className="btn danger small";del.textContent="মুছে ফেলো";
+  del.addEventListener("click",async()=>{if(!confirm(`পৃষ্ঠা ${pageOf(poem)} — “${poem.title||"এই কবিতা"}” মুছে ফেলবে? এই কাজ ফিরিয়ে আনা যাবে না।`))return;del.disabled=true;try{await deleteDoc(doc(db,"poems",poem.id));if(editingId===poem.id)resetForm();sessionChanges++;notice(appNotice,"কবিতাটি মুছে ফেলা হয়েছে।","ok");await loadPoems()}catch(error){notice(appNotice,"Delete করা যায়নি: "+errorText(error),"err");del.disabled=false}});
+  actions.append(edit,del);card.append(head,actions);poemList.appendChild(card);
+ });
+}
+loginForm.addEventListener("submit",async e=>{e.preventDefault();clearNotice(loginNotice);loginBtn.disabled=true;loginBtn.textContent="Logging in…";try{const result=await signInWithEmailAndPassword(auth,$("poem-email").value.trim(),$("poem-password").value);if(result.user.uid!==ADMIN_UID){await signOut(auth);notice(loginNotice,"এই account-টি Admin UID নয়।","err")}}catch(error){notice(loginNotice,errorText(error),"err")}finally{loginBtn.disabled=false;loginBtn.textContent="Login"}});
+$("poem-logoutBtn")?.addEventListener("click",()=>signOut(auth));
+$("poem-refreshBtn").addEventListener("click",loadPoems);
+$("poem-searchPoems").addEventListener("input",renderList);$("poem-sortMode").addEventListener("change",renderList);
+cancelEditBtn.addEventListener("click",resetForm);$("poem-clearDraftBtn").addEventListener("click",()=>{if(confirm("ফর্মের লেখা পরিষ্কার করবে?"))resetForm()});
+poemForm.addEventListener("submit",async e=>{
+ e.preventDefault();clearNotice(appNotice);
+ if(!auth.currentUser||auth.currentUser.uid!==ADMIN_UID){notice(appNotice,"Admin হিসেবে লগইন করো।","err");return}
+ const title=$("poem-poemTitle").value.trim(),text=$("poem-poemText").value.trim(),date=$("poem-poemDate").value||dateToday(),emoji=$("poem-poemEmoji").value.trim()||"🌸",decoration=$("poem-poemDecoration").value.trim()||"✨",themeIndex=Math.max(0,Math.min(23,Number($("poem-poemTheme").value)||0)),pageField=$("poem-poemPageNumber").value.trim(),requestedPage=pageField===""?null:Number(pageField);
+ if(!title||!text){notice(appNotice,"শিরোনাম ও কবিতা—দুটিই লিখতে হবে।","err");return}
+ if(requestedPage!==null&&(!Number.isInteger(requestedPage)||requestedPage<1)){notice(appNotice,"পৃষ্ঠা নম্বর ১ বা তার বেশি পূর্ণসংখ্যা হতে হবে।","err");return}
+ saveBtn.disabled=true;saveBtn.textContent="Saving…";
+ try{
+  const snap=await getDocs(collection(db,"poems"));const current=snap.docs.map(d=>({id:d.id,...d.data()}));let pageNumber=requestedPage;
+  if(editingId){const original=current.find(p=>p.id===editingId);if(pageNumber===null)pageNumber=pageOf(original||{})||1}
+  else if(pageNumber===null)pageNumber=current.reduce((m,p)=>Math.max(m,pageOf(p)),0)+1;
+  if(current.some(p=>p.id!==editingId&&pageOf(p)===pageNumber)){notice(appNotice,"এই পৃষ্ঠা নম্বরটি অন্য কবিতায় আছে। অন্য নম্বর দাও।","err");return}
+  const data={title,text,date,emoji,decoration,themeIndex,pageNumber,updatedAt:serverTimestamp()};
+  if(editingId){await updateDoc(doc(db,"poems",editingId),data);notice(appNotice,"কবিতার পরিবর্তন Save হয়েছে।","ok")}
+  else{await addDoc(collection(db,"poems"),{...data,createdAt:serverTimestamp()});notice(appNotice,"নতুন কবিতা Firebase-এ Save হয়েছে।","ok")}
+  sessionChanges++;resetForm();await loadPoems();
+ }catch(error){console.error(error);notice(appNotice,"Save করা যায়নি: "+errorText(error),"err")}
+ finally{saveBtn.disabled=false;saveBtn.textContent=editingId?"পরিবর্তন Save করো":"কবিতা Save করো"}
+});
+onAuthStateChanged(auth,async user=>{clearNotice(loginNotice);if(user&&user.uid===ADMIN_UID){showSignedIn(true);await loadPoems()}else{showSignedIn(false);if(user&&user.uid!==ADMIN_UID){await signOut(auth);notice(loginNotice,"এই account-টি Admin হিসেবে অনুমোদিত নয়।","err")}}});
+renderDesignPreview();updateCounts();
+</script>
+</body></html>

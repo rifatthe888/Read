@@ -1,0 +1,1265 @@
+
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#fff0f7">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <title>মনের ক্যানভাস </title>
+
+<style>
+  /* FLOATING CAPTION SWITCH */
+
+.caption-switch{
+  position:fixed;
+  left:50%;
+  bottom:22px;
+  transform:translateX(-50%);
+  z-index:9999;
+
+  display:grid;
+  place-items:center;
+  width:46px;
+  height:46px;
+
+  border:1px solid #ffffffd9;
+  border-radius:17px;
+  background:linear-gradient(145deg,#ffffffc9,#f8eaf590);
+
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+
+  box-shadow:
+    0 5px 18px #bd91b638,
+    inset 0 1px 3px #ffffff;
+
+  color:#a875a0;
+  font-size:19px;
+  text-decoration:none;
+  -webkit-tap-highlight-color:transparent;
+}
+
+.caption-switch i{
+  animation:captionLoop 2.8s linear infinite;
+}
+
+.caption-switch::before,
+.caption-switch::after{
+  content:"";
+  position:absolute;
+  border:1.5px solid transparent;
+  border-radius:50%;
+  pointer-events:none;
+}
+
+.caption-switch::before{
+  inset:-5px;
+  border-top-color:#d99abd;
+  border-right-color:#d99abd;
+  animation:captionRing 3s linear infinite;
+}
+
+.caption-switch::after{
+  inset:-9px;
+  border-bottom-color:#bda2e8;
+  border-left-color:#bda2e8;
+  animation:captionRingReverse 4s linear infinite;
+}
+
+.caption-switch:active{
+  scale:.88;
+}
+
+@keyframes captionLoop{
+  to{transform:rotate(360deg)}
+}
+
+@keyframes captionRing{
+  to{transform:rotate(360deg)}
+}
+
+@keyframes captionRingReverse{
+  to{transform:rotate(-360deg)}
+}
+  /* SOCIAL MEDIA ICONS */
+
+.footer .social-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 19px;
+  margin: 0 auto 10px;
+}
+
+.footer .social-links a {
+  display: grid;
+  place-items: center;
+  width: 27px;
+  height: 27px;
+  color: #776b76;
+  font-size: 16px;
+  transition: transform .2s ease, color .2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.footer .social-links a:active {
+  transform: scale(.78);
+  color: #d779a8;
+}
+
+.footer .footer-credit {
+  color: #b090ad;
+  font-size: 11px;
+  text-align: center;
+}
+  .topbar > .top-icon.brand-mark {
+  display: block;
+  width: 60px;
+  height: 60px;
+  padding: 0;
+  flex-shrink: 0;
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: transparent;
+  font-size: 0;
+    transform: translateX(5px);
+}
+
+.topbar > .top-icon.brand-mark::after {
+  content: none;
+}
+
+.topbar > .top-icon.brand-mark .brand-logo-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.reader-topbar{
+  min-height:60px;
+  gap:10px;
+}
+
+.reader-topbar .reader-brand{
+  flex:1;
+  min-width:0;
+  text-align:center;
+  font-size:21px;
+  font-weight:900;
+  letter-spacing:0;
+  line-height:1.4;
+  color:#a65b91;
+}
+.reader-brand-title::before,
+.reader-brand-title::after{
+  content:"";
+  display:inline-block;
+  width:22px;
+  height:7px;
+  border-top:1px solid #c17fa7;
+  border-radius:50% 50% 0 0;
+  vertical-align:middle;
+  margin:0 7px;
+  transform:translateY(2px);
+}
+.reader-brand-title{
+  display:block;
+  white-space:nowrap;
+  background:linear-gradient(90deg,#a65b91 0%,#bd6a9e 55%,#98518b 100%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.reader-brand-subtitle{
+  display:block;
+  margin-top:3px;
+  color:#c17fa7;
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:1.2px;
+  white-space:nowrap;
+  font-family:"Cormorant Garamond",serif;
+}
+
+.reader-topbar .brand-mark{
+  position:relative;
+  display:block;
+  width:60px;
+  height:60px;
+  flex-shrink:0;
+  padding:0;
+  border:0;
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
+  transform:none;
+  overflow:visible;
+}
+
+.reader-topbar .brand-mark:after{
+  content:none;
+}
+
+.reader-topbar .brand-logo-svg{
+  display:block;
+  width:100%;
+  height:100%;
+  overflow:visible;
+}
+
+@media(max-width:360px){
+  .reader-topbar{
+    gap:6px;
+    padding-left:8px;
+    padding-right:8px;
+  }
+
+  .reader-topbar .reader-brand{
+    font-size:17px;
+  }
+
+  .reader-brand-subtitle{
+    font-size:7px;
+    letter-spacing:.7px;
+  }
+
+  .reader-topbar .brand-mark{
+    width:48px;
+    height:48px;
+  }
+}
+
+:root{
+  --text:#614661;
+  --muted:#a18aa2;
+  --pink:#e88bb8;
+  --purple:#a695e8;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{min-height:100%;scroll-behavior:auto}
+body{
+  margin:0;min-height:100vh;
+  font-family:"Noto Sans Bengali","Hind Siliguri",system-ui,sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(ellipse at 0% 0%,#ffe0ef 0%,transparent 38%),
+    radial-gradient(ellipse at 100% 18%,#e8e2ff 0%,transparent 35%),
+    linear-gradient(145deg,#fff9fc,#f8f3ff 58%,#fff0f6);
+}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+.container{width:100%;max-width:850px;margin:auto;padding:19px 16px 35px}
+
+.topbar,.reader-topbar{
+  display:flex;align-items:center;gap:12px;
+  padding:0px 13px;border:1px solid #ffffffd9;
+  border-radius:19px;background:#ffffff80;
+}
+.topbar{position:relative;justify-content:space-between;box-shadow:0 7px 22px #b78caf0c}
+.brand{display:flex;align-items:center;gap:9px;font-size:12px;font-weight:900;letter-spacing:2px;color:#a16e9e;min-width:35px}
+.brand-mark{
+  position:relative;display:grid;place-items:center;width:35px;height:35px;flex-shrink:0;
+  border:1px solid #ffffffd9;border-radius:13px 13px 13px 5px;
+  background:linear-gradient(145deg,#f3b0d0,#b3a0f0);
+  color:white;font-size:19px;text-shadow:0 2px 5px #a6538955;
+  box-shadow:inset 0 1px 0 #ffffffb8,0 3px 8px #d58dbb35;
+}
+.brand-mark:after{content:"✦";position:absolute;right:3px;top:2px;font-size:9px;color:#fff; text-shadow:0 1px 4px #a65389}
+.topbar .brand-mark{
+  width:60px;
+  height:60px;
+  transform:translateX(-5px);
+  flex-shrink:0;
+  display:block;
+  overflow:visible;
+  padding:0;
+  border:0;
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
+  color:transparent;
+  font-size:0;
+  text-shadow:none;
+}
+.topbar .brand-mark:after{content:none}
+.topbar .brand-logo-svg{
+  display:block;
+  width:100%;
+  height:100%;
+  overflow:visible;
+}
+.brand-copy{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;width:max-content;max-width:calc(100% - 112px);text-align:center;letter-spacing:0;line-height:1.25}
+.brand-title{font-size:21px;font-weight:900;white-space:nowrap;background:linear-gradient(90deg,#a65b91 0%,#bd6a9e 55%,#98518b 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#a65b91}
+.brand-subtitle{display:flex;align-items:center;justify-content:center;gap:7px;font-size:9px;font-weight:800;letter-spacing:1.6px;white-space:nowrap;color:#c17fa7 ;font-family:"Cormorant Garamon",serif;}
+.brand-subtitle:before,.brand-subtitle:after{content:"";display:block;width:15px;height:1.5px;border-radius:3px;background:linear-gradient(90deg,#e9a0c5,#d47eae)}
+@media(max-width:360px){.brand-title{font-size:20px}.brand-subtitle{font-size:8px;letter-spacing:1px}.brand-copy{max-width:calc(100% - 100px)}.brand-subtitle:before,.brand-subtitle:after{width:10px}}
+.top-icon{
+  display:grid;place-items:center;width:39px;height:39px;flex-shrink:0;
+  border:1px solid white;border-radius:14px;
+  background:#ffffff99;color:#d979a9;font-size:21px;
+}
+.section-intro{margin:26px 2px 16px}
+.eyebrow{
+  display:flex;align-items:center;justify-content:center;gap:8px;width:fit-content;max-width:100%;margin:0 auto 13px;
+  padding:8px 12px;border:1px solid white;border-radius:30px;
+  background:#ffffff80;color:#b16e9c;font-size:10px;font-weight:850;letter-spacing:2px;text-align:center;
+}
+.eyebrow:before{content:"✦";font-size:12px;color:#e58db8}
+.love-divider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin: -1px auto 13px;
+  color: #df8ab5;
+}
+
+.love-divider .love-line {
+  width: 1px;
+  height: 6px;
+  background: linear-gradient(180deg, transparent, #e8a0c5);
+  border-radius: 2px;
+}
+
+.love-divider .love-heart {
+  display: grid;
+  place-items: center;
+  width: 23px;
+  height: 17px;
+  border: 1px solid #f0c9df;
+  border-radius: 50%;
+  background: #ffffff80;
+  color: #d984b2;
+  font-size: 11px;
+  line-height: 1;
+  box-shadow: 0 2px 5px #dca2c31a;
+}.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;padding-left:12px;border-left:3px solid #e8a0c5}
+.section-title{margin:0;font-size:19px;line-height:1.5;font-weight:850}
+.section-note{max-width:46%;margin:0 0 3px;color:var(--muted);font-size:10px;line-height:1.7;text-align:right}
+
+.poem-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px 10px;align-items:stretch}
+.poem-folder{
+  --folder-color:#ed83b1;--folder-light:#fff0f6;--folder-ink:#a94e78;
+  --folder-radius:20px 20px 20px 8px;
+  position:relative;isolation:isolate;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;min-width:0;min-height:153px;
+  padding:15px 7px 13px;overflow:hidden;
+  border:1px solid color-mix(in srgb,var(--folder-color) 20%,white);
+  border-radius:var(--folder-radius);
+  background:radial-gradient(circle at 100% 0%,#ffffffd9,transparent 48%),linear-gradient(145deg,var(--folder-light),#ffffffb8);
+  box-shadow:0 8px 22px color-mix(in srgb,var(--folder-color) 13%,transparent),inset 0 1px 0 white;
+  color:var(--folder-ink);text-align:center;transition:box-shadow .18s;
+}
+.poem-folder:before{
+  content:"";position:absolute;z-index:-1;width:75px;height:75px;
+  right:-30px;top:-32px;border-radius:50%;
+  background:var(--folder-color);opacity:.13;
+}
+.poem-folder:after{
+  content:"";position:absolute;z-index:-1;left:9px;right:9px;bottom:5px;
+  height:2px;border-radius:5px;
+  background:linear-gradient(90deg,transparent,var(--folder-color),transparent);opacity:.35;
+}
+.poem-folder:active{box-shadow:0 4px 12px #b79ac52b}
+.poem-folder:nth-child(3n + 2){translate:0px 0}
+
+.poem-folder.theme-0{--folder-color:#f06eaa;--folder-light:#ffe1ef;--folder-ink:#a33e71;--folder-radius:20px 20px 20px 8px}
+.poem-folder.theme-1{--folder-color:#9a7cf0;--folder-light:#e9e1ff;--folder-ink:#624ba8;--folder-radius:8px 20px 8px 20px}
+.poem-folder.theme-2{--folder-color:#36bda0;--folder-light:#d9f8ef;--folder-ink:#267c69;--folder-radius:20px 8px 20px 20px}
+.poem-folder.theme-3{--folder-color:#f2ad4e;--folder-light:#fff0d4;--folder-ink:#98631f;--folder-radius:20px}
+.poem-folder.theme-4{--folder-color:#599df3;--folder-light:#deedff;--folder-ink:#386da9;--folder-radius:23px 12px 23px 12px}
+.poem-folder.theme-5{--folder-color:#d779dc;--folder-light:#f7dffc;--folder-ink:#934594;--folder-radius:12px 23px 12px 23px}
+.poem-folder.theme-6{--folder-color:#e994a0;--folder-light:#fff0f1;--folder-ink:#ad5968;--folder-radius:25px 12px 25px 12px}
+.poem-folder.theme-7{--folder-color:#85c7d5;--folder-light:#ebfbff;--folder-ink:#438d9c;--folder-radius:12px 25px 12px 25px}
+.poem-folder.theme-8{--folder-color:#8ecb91;--folder-light:#effbef;--folder-ink:#4b9253;--folder-radius:18px 18px 7px 18px}
+.poem-folder.theme-9{--folder-color:#b6a0df;--folder-light:#f5efff;--folder-ink:#7b62aa;--folder-radius:7px 18px 18px 18px}
+.poem-folder.theme-10{--folder-color:#e6a0ce;--folder-light:#fff0fa;--folder-ink:#a65389;--folder-radius:24px 9px 24px 9px}
+.poem-folder.theme-11{--folder-color:#d6ad78;--folder-light:#fff6e9;--folder-ink:#966b39;--folder-radius:9px 24px 9px 24px}
+.poem-folder.theme-12{--folder-color:#f28b82;--folder-light:#fff0ed;--folder-ink:#a64c47;--folder-radius:26px 26px 10px 26px}
+.poem-folder.theme-13{--folder-color:#7dceaa;--folder-light:#e8fff3;--folder-ink:#347c5d;--folder-radius:10px 26px 26px 26px}
+.poem-folder.theme-14{--folder-color:#7ea6f8;--folder-light:#edf2ff;--folder-ink:#405f9e;--folder-radius:26px 10px 26px 10px}
+.poem-folder.theme-15{--folder-color:#f2a6b3;--folder-light:#fff0f3;--folder-ink:#a44f65;--folder-radius:50% 50% 20px 20px}
+.poem-folder.theme-16{--folder-color:#c3a0f5;--folder-light:#f4ecff;--folder-ink:#7953a8;--folder-radius:16px 28px 16px 28px}
+.poem-folder.theme-17{--folder-color:#70c9d8;--folder-light:#e8fbff;--folder-ink:#347d8b;--folder-radius:28px 16px 28px 16px}
+.poem-folder.theme-18{--folder-color:#e7bb5b;--folder-light:#fff8df;--folder-ink:#967326;--folder-radius:12px 12px 28px 28px}
+.poem-folder.theme-19{--folder-color:#ed9ed7;--folder-light:#fff0fb;--folder-ink:#a64f8c;--folder-radius:28px 8px 28px 8px}
+.poem-folder.theme-20{--folder-color:#a5b4fc;--folder-light:#eef0ff;--folder-ink:#555fa5;--folder-radius:20px 20px 5px 20px}
+.poem-folder.theme-21{--folder-color:#9bcf75;--folder-light:#f2ffe7;--folder-ink:#557d32;--folder-radius:5px 20px 20px 20px}
+.poem-folder.theme-22{--folder-color:#f0b18b;--folder-light:#fff2e8;--folder-ink:#a56640;--folder-radius:24px 24px 24px 4px}
+.poem-folder.theme-23{--folder-color:#a6a6b8;--folder-light:#f2f2f8;--folder-ink:#62627c;--folder-radius:14px 24px 14px 24px}
+
+.folder-decoration{position:absolute;top:-12px;right:-7px;font-size:46px;color:var(--folder-color);opacity:.15;pointer-events:none}
+.folder-icon{display:grid;place-items:center;width:45px;height:45px;flex-shrink:0;margin-bottom:9px;border:1px solid #ffffffd9;border-radius:15px;background:#ffffff8c;font-size:24px;line-height:1}
+.page-number{display:inline-block;max-width:100%;padding:3px 7px;margin-bottom:7px;border-radius:20px;background:#ffffffa8;color:var(--folder-ink);font-size:9px;font-weight:850}
+.poem-title{width:100%;padding:0 2px;font-size:11px;font-weight:850;line-height:1.65;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.folder-date{margin-top:7px;font-size:9px;color:var(--folder-ink);opacity:.7}
+.empty{grid-column:1/-1;padding:35px 15px;border:1px dashed #dfc5dd;border-radius:22px;background:#ffffff70;color:#9d83a0;font-size:13px;line-height:2;text-align:center}
+.empty-icon{display:block;margin-bottom:7px;font-size:30px}
+.footer,.reader-footer{margin-top:33px;padding-top:15px;border-top:1px solid #ffffffb0;color:#b090ad;font-size:11px;text-align:center}
+.footer span,.reader-footer span{color:#df83b0}
+.status-message{grid-column:1/-1;padding:22px 15px;border:1px solid white;border-radius:18px;background:#ffffff80;color:#9d83a0;font-size:12px;line-height:1.9;text-align:center}
+
+.screen[hidden]{display:none!important}
+.screen{will-change:auto}
+.screen.view-enter{animation:screenIn .22s ease-out both}
+.screen.view-enter-back{animation:screenBack .20s ease-out both}
+@keyframes screenIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes screenBack{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+.poem-folder{animation:folderRise .22s ease-out both}
+.poem-folder:nth-child(3n + 2){animation-delay:.015s}
+.poem-folder:nth-child(3n){animation-delay:.03s}
+@keyframes folderRise{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+
+.reader-back{
+  display:grid;place-items:center;width:40px;height:40px;flex-shrink:0;
+  border:1px solid #f1d9e9;border-radius:14px;
+  background:#fff0f7;color:#a65389;font-size:22px;cursor:pointer;
+}
+.reader-brand{font-size:12px;font-weight:900;letter-spacing:2px;color:#a16e9e}
+.reader-brand small{display:block;margin-top:3px;font-size:10px;font-weight:600;letter-spacing:.4px}
+
+.reader-meta{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  margin-top:19px;margin-bottom:11px;
+}
+.reader-page,.reader-date{
+  display:inline-flex;align-items:center;gap:5px;
+  min-width:0;padding:6px 10px;border:1px solid #f4dfec;
+  border-radius:30px;background:#ffffffa8;color:#a16e9e;
+  font-size:10px;font-weight:700;
+}
+.reader-date{justify-content:flex-end;color:#a18aa2;font-weight:500}
+
+/* Box height follows the poem; no forced common height */
+.reader-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  margin-top: 0;
+  min-height: 0;
+  height: auto;
+  padding: 22px 19px 18px;
+
+  /* Pure white stroke */
+  border: 2px solid #ffffff;
+  border-radius: 25px;
+
+  /* Soft white + light pink background */
+  background: #fff5fa;
+
+  /* Lightweight pink shadow */
+  box-shadow: 0 0 14px 3px rgba(232, 105, 166, 0.20);
+}
+
+/* Small love heart */
+.reader-card:before {
+  content: "♡";
+  position: absolute;
+  z-index: -1;
+  right: 17px;
+  top: 12px;
+  color: #e88bb8;
+  opacity: 0.25;
+  font-size: 32px;
+  line-height: 1;
+  pointer-events: none;
+}
+
+/* Tiny sparkle */
+.reader-card:after {
+  content: "✧";
+  position: absolute;
+  z-index: -1;
+  left: 14px;
+  bottom: 12px;
+  color: #d99bc9;
+  opacity: 0.3;
+  font-size: 21px;
+  line-height: 1;
+  pointer-events: none;
+}
+  
+.reader-kicker{
+  display:block;margin:0 auto 10px;text-align:center;
+  color:#c58aaf;font-size:10px;font-weight:700;letter-spacing:1.2px;
+}
+.reader-title{
+  margin:0;color:#74456e;font-size:23px;line-height:1.75;
+  font-weight:850;text-align:center;overflow-wrap:anywhere;
+}
+.reader-divider{
+  position:relative;height:1px;margin:16px 0 19px;
+  background:linear-gradient(90deg,transparent,#edb4d2,#c7b7f1,transparent);
+}
+.reader-divider:after{
+  content:"♡";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  padding:0 10px;background:#fffafc;color:#d98ab5;font-size:13px;
+}
+
+/* The full text height is measured and reserved before typing */
+.reader-text{
+  display:block;
+  width:100%;
+  height:auto;
+  min-height:0;
+  margin:0;
+  flex-shrink:0;
+  color:#60445d;
+  font-size:16px;
+  line-height:2.15;
+  white-space:pre-wrap;
+  overflow-wrap:anywhere;
+  word-break:normal;
+}
+.reader-text.typing{border:0;outline:0}
+
+.reader-actions{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:10px;margin-top:20px;padding-top:13px;
+  border-top:1px solid #f3e1ed;
+}
+.reader-action{
+  display:inline-flex;align-items:center;justify-content:center;gap:5px;
+  min-height:32px;padding:6px 11px;
+  border:1px solid #efcfe2;border-radius:11px;
+  background:linear-gradient(135deg,#fff0f7,#f5f0ff);
+  color:#a65389;font-size:11px;font-weight:700;
+  cursor:pointer;transition:transform .16s,background .16s;
+}
+.reader-action:active{transform:scale(.96)}
+.reader-action.share{border-color:#e5d8f6;color:#8268b4;background:linear-gradient(135deg,#f9f3ff,#fff0f7)}
+.copy-status{min-height:17px;margin-top:7px;color:#a16e9e;font-size:10px;text-align:center}
+.reader-footer{border:0;margin-top:22px;padding-top:0}
+
+@media(min-width:600px){
+  .container{padding-left:24px;padding-right:24px}
+  .poem-grid{gap:15px}
+  .poem-folder{min-height:165px}
+  .poem-title{font-size:13px}
+  .section-title{font-size:22px}
+  .reader-card{padding:29px 28px 20px}
+  .reader-title{font-size:28px}
+  .reader-text{font-size:17px}
+  .reader-action{padding:7px 13px}
+}
+@media(max-width:360px){
+  .container{padding-left:12px;padding-right:12px}
+  .poem-grid{gap:10px 8px}
+  .poem-folder{min-height:143px;padding-left:5px;padding-right:5px}
+  .folder-icon{width:41px;height:41px;font-size:22px}
+  .poem-title{font-size:10px}
+  .section-title{font-size:17px}
+  .section-note{font-size:9px}
+  .reader-card{padding:19px 14px 16px}
+  .reader-title{font-size:21px}
+  .reader-text{font-size:15px;line-height:2.1}
+  .reader-page,.reader-date{padding:5px 8px;font-size:9px}
+  .reader-action{padding:6px 9px;font-size:10px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*:before,*:after{scroll-behavior:auto!important;transition:none!important;animation:none!important}
+}
+</style>
+</head>
+
+<body>
+<main class="container">
+
+  <div class="screen" id="folderScreen">
+    <header class="topbar">
+      <a class="brand"  aria-label="MR WORLD home">
+        <span class="brand-mark" aria-label="Pink heart logo">
+          <svg class="brand-logo-svg" viewBox="0 0 220 230" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Pink heart in a white rounded glass box">
+            <defs>
+              <linearGradient id="heartBox" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#fffefe"/>
+                <stop offset="100%" stop-color="#fff9fc"/>
+              </linearGradient>
+              <linearGradient id="heartStroke" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#ee8bb6"/>
+                <stop offset="100%" stop-color="#e76c9f"/>
+              </linearGradient>
+              <filter id="softGlow" x="-35%" y="-35%" width="170%" height="170%">
+                <feGaussianBlur stdDeviation="5"/>
+              </filter>
+            </defs>
+            <rect x="24" y="35" width="172" height="153" rx="48" fill="#f2b7d3" opacity=".22" filter="url(#softGlow)"/>
+            <rect x="25" y="36" width="170" height="151" rx="47" fill="url(#heartBox)" stroke="#f9d6e7" stroke-width="2.4"/>
+            <rect x="29" y="40" width="162" height="143" rx="43" fill="none" stroke="#fff" stroke-width="2.8"/>
+            <path d="M37 44 Q23 58 28 78" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".95"/>
+            <path d="M27 99 C7 108 20 126 46 139 C66 151 80 158 94 157" fill="none" stroke="#f6c4dc" stroke-width="3.2" stroke-linecap="round" opacity=".9"/>
+            <path d="M193 99 C213 108 200 126 174 139 C154 151 140 158 126 157" fill="none" stroke="#f6c4dc" stroke-width="3.2" stroke-linecap="round" opacity=".9"/>
+            <text x="110" y="126" text-anchor="middle" font-family="Arial, sans-serif" font-size="68" font-weight="500" fill="#e76c9f" opacity="0.45" filter="url(#softGlow)">ᥫ᭡</text>
+            <text x="110" y="126" text-anchor="middle" font-family="Arial, sans-serif" font-size="68" font-weight="500" fill="url(#heartStroke)">ᥫ᭡</text>
+            
+            <path d="M146 65 L151 76 L162 81 L151 86 L146 97 L141 86 L130 81 L141 76 Z" fill="#e982ad"/>
+            <path d="M105 177 C100 169 90 171 90 179 C90 186 105 193 105 193 C105 193 120 186 120 179 C120 171 110 169 105 177Z" fill="#e875a8"/>
+          </svg>
+        </span>
+        <span class="brand-copy">
+          <span class="brand-title">মনের ক্যানভাস</span>
+          <span class="brand-subtitle">RIFAT'S POETRY SPACE</span>
+        </span>
+      </a>
+      
+<div class="top-icon brand-mark" aria-label="Pink heart logo">
+  <svg class="brand-logo-svg" viewBox="0 0 220 230"
+       xmlns="http://www.w3.org/2000/svg"
+       role="img" aria-label="Pink heart logo">
+    <defs>
+      <linearGradient id="topHeartBox" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#fffefe"/>
+        <stop offset="100%" stop-color="#fff9fc"/>
+      </linearGradient>
+      <linearGradient id="topHeartStroke" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#ee8bb6"/>
+        <stop offset="100%" stop-color="#e76c9f"/>
+      </linearGradient>
+      <filter id="topSoftGlow" x="-35%" y="-35%" width="170%" height="170%">
+        <feGaussianBlur stdDeviation="5"/>
+      </filter>
+    </defs>
+
+    <rect x="24" y="35" width="172" height="153" rx="48"
+          fill="#f2b7d3" opacity=".22" filter="url(#topSoftGlow)"/>
+    <rect x="25" y="36" width="170" height="151" rx="47"
+          fill="url(#topHeartBox)" stroke="#f9d6e7" stroke-width="2.4"/>
+    <rect x="29" y="40" width="162" height="143" rx="43"
+          fill="none" stroke="#fff" stroke-width="2.8"/>
+
+    <path d="M37 44 Q23 58 28 78"
+          fill="none" stroke="#fff" stroke-width="5"
+          stroke-linecap="round" opacity=".95"/>
+    <path d="M27 99 C7 108 20 126 46 139 C66 151 80 158 94 157"
+          fill="none" stroke="#f6c4dc" stroke-width="3.2"
+          stroke-linecap="round" opacity=".9"/>
+    <path d="M193 99 C213 108 200 126 174 139 C154 151 140 158 126 157"
+          fill="none" stroke="#f6c4dc" stroke-width="3.2"
+          stroke-linecap="round" opacity=".9"/>
+
+    <text x="110" y="126" text-anchor="middle"
+          font-family="Arial, sans-serif" font-size="68"
+          font-weight="500" fill="#e76c9f" opacity=".45"
+          filter="url(#topSoftGlow)">ᥫ᭡</text>
+    <text x="110" y="126" text-anchor="middle"
+          font-family="Arial, sans-serif" font-size="68"
+          font-weight="500" fill="url(#topHeartStroke)">ᥫ᭡</text>
+
+    <path d="M146 65 L151 76 L162 81 L151 86 L146 97 L141 86 L130 81 L141 76 Z"
+          fill="#e982ad"/>
+    <path d="M105 177 C100 169 90 171 90 179 C90 186 105 193 105 193 C105 193 120 186 120 179 C120 171 110 169 105 177Z"
+          fill="#e875a8"/>
+  </svg>
+</div>
+
+    </header>
+
+    <section aria-labelledby="poetryHeading">
+      <div class="section-intro">
+        <div class="eyebrow">THE WORLD OF FEELINGS</div>
+        <div class="love-divider" aria-hidden="true">
+          <span class="love-line"></span>
+          <span class="love-heart">♡</span>
+          <span class="love-line"></span>
+        </div>
+        <div class="section-head">
+          <h1 class="section-title" id="poetryHeading">♡ অনুভূতির পাতা</h1>
+          <p class="section-note">একেকটি পাতা, একেকটি অনুভূতি</p>
+        </div>
+      </div>
+      <div class="poem-grid" id="poemGrid">
+        <div class="status-message">🌸 Firebase থেকে কবিতা লোড হচ্ছে…</div>
+      </div>
+    </section>
+<footer class="footer">
+
+    <a href="https://facebook.com/@rifatthe888" target="_blank" rel="noopener" aria-label="Facebook">
+  <div class="social-links">
+      <i class="fa-brands fa-facebook-f"></i>
+    </a>
+
+    <a href="https://instagram.com/rifatthe777" target="_blank" rel="noopener" aria-label="Instagram">
+      <i class="fa-brands fa-instagram"></i>
+    </a>
+
+    <a href="https://tiktok.com/@rifatthe888" target="_blank" rel="noopener" aria-label="TikTok">
+      <i class="fa-brands fa-tiktok"></i>
+    </a>
+
+    <a href="https://youtube.com/@primerifat01" target="_blank" rel="noopener" aria-label="YouTube">
+      <i class="fa-brands fa-youtube"></i>
+    </a>
+  </div>
+
+  <div class="footer-credit">𝙼𝙰𝙳𝙴 𝙱𝚈 𝚁𝙸𝙵𝙰𝚃</div>
+<br><br><br>
+</footer>
+    <!-- FLOATING CAPTION SWITCH -->
+<a href="caption.html"
+   class="caption-switch"
+   aria-label="Open Caption Page">
+  <i class="fa-solid fa-repeat"></i>
+</a>
+  </div>
+
+  <div class="screen" id="readerScreen" hidden>
+    
+<header class="reader-topbar">
+  <button class="reader-back" id="readerBack" type="button" aria-label="Back to folders">‹</button>
+
+  <div class="reader-brand">
+    <span class="reader-brand-title">মনের ক্যানভাস</span>
+    <span class="reader-brand-subtitle">RIFAT'S POETRY SPACE</span>
+  </div>
+
+  <span class="brand-mark" aria-label="Pink heart logo">
+    <svg class="brand-logo-svg" viewBox="0 0 220 230" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Pink heart logo">
+      <defs>
+        <linearGradient id="readerHeartBox" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#fffefe"/>
+          <stop offset="100%" stop-color="#fff9fc"/>
+        </linearGradient>
+        <linearGradient id="readerHeartStroke" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#ee8bb6"/>
+          <stop offset="100%" stop-color="#e76c9f"/>
+        </linearGradient>
+        <filter id="readerSoftGlow" x="-35%" y="-35%" width="170%" height="170%">
+          <feGaussianBlur stdDeviation="5"/>
+        </filter>
+      </defs>
+      <rect x="24" y="35" width="172" height="153" rx="48" fill="#f2b7d3" opacity=".22" filter="url(#readerSoftGlow)"/>
+      <rect x="25" y="36" width="170" height="151" rx="47" fill="url(#readerHeartBox)" stroke="#f9d6e7" stroke-width="2.4"/>
+      <rect x="29" y="40" width="162" height="143" rx="43" fill="none" stroke="#fff" stroke-width="2.8"/>
+      <path d="M37 44 Q23 58 28 78" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".95"/>
+      <path d="M27 99 C7 108 20 126 46 139 C66 151 80 158 94 157" fill="none" stroke="#f6c4dc" stroke-width="3.2" stroke-linecap="round" opacity=".9"/>
+      <path d="M193 99 C213 108 200 126 174 139 C154 151 140 158 126 157" fill="none" stroke="#f6c4dc" stroke-width="3.2" stroke-linecap="round" opacity=".9"/>
+      <text x="110" y="126" text-anchor="middle" font-family="Arial, sans-serif" font-size="68" font-weight="500" fill="url(#readerHeartStroke)">ᥫ᭡</text>
+      <path d="M146 65 L151 76 L162 81 L151 86 L146 97 L141 86 L130 81 L141 76 Z" fill="#e982ad"/>
+      <path d="M105 177 C100 169 90 171 90 179 C90 186 105 193 105 193 C105 193 120 186 120 179 C120 171 110 169 105 177Z" fill="#e875a8"/>
+    </svg>
+  </span>
+</header>
+
+
+    <div class="reader-meta">
+      <div class="reader-page" id="readerPage">পৃষ্ঠা ০০১</div>
+      <div class="reader-date" id="readerDate"></div>
+    </div>
+
+    <article class="reader-card">
+      <div class="reader-kicker">♡ A PAGE OF FEELINGS ♡</div>
+      <h1 class="reader-title" id="readerTitle"></h1>
+      <div class="reader-divider"></div>
+      <p class="reader-text" id="readerText"></p>
+
+      <div class="reader-actions">
+        <button class="reader-action" id="copyPoem" type="button">♡ কপি</button>
+        <button class="reader-action share" id="sharePoem" type="button">↗ শেয়ার</button>
+      </div>
+      <div class="copy-status" id="copyStatus" aria-live="polite"></div>
+    </article>
+
+    <footer class="reader-footer">𝙼𝙰𝙳𝙴 𝙱𝚈 𝚁𝙸𝙵𝙰𝚃</footer>
+  </div>
+
+</main>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBc1EP0Z4aXq9hOjjImY4HNF7hDsxLoVU4",
+  authDomain: "world-poetry-f8a06.firebaseapp.com",
+  projectId: "world-poetry-f8a06",
+  storageBucket: "world-poetry-f8a06.firebasestorage.app",
+  messagingSenderId: "112670737432",
+  appId: "1:112670737432:web:2b9bbb1e41fcfeb5506f6d"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+let poemsCache = [];
+let loadFailed = false;
+let currentPoemId = null;
+let folderScrollY = 0;
+let typingTimer = null;
+let typingToken = 0;
+
+if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+
+const folderScreen = document.getElementById("folderScreen");
+const readerScreen = document.getElementById("readerScreen");
+const grid = document.getElementById("poemGrid");
+const readerText = document.getElementById("readerText");
+
+const folderIcons = [
+  "💌","💗","🦋","🌷","🌙","💜","🌸","✨",
+  "🪻","☁️","🩷","⭐","🕊️","🍃","🪞","🎀",
+  "🫧","🐚","☀️","🪷","🪄","🌿","🧸","🩶"
+];
+
+const decorations = [
+  "♡","✦","❀","✧","☾","❋","⋆","♥",
+  "✿","♡","✦","✧","❦","༄","୨୧","ꕤ",
+  "𓆩♡𓆪","⌁","☼","❁","✺","♧","୭","✧"
+];
+
+function stableHash(value) {
+  const str = String(value || "untitled");
+  let hash = 2166136261;
+  for (let i = 0; i < str.length; i++) {
+    hash ^= str.charCodeAt(i);
+    hash = Math.imul(hash, 16777619);
+  }
+  return hash >>> 0;
+}
+
+function getPoemId(poem, index) {
+  if (poem.id !== undefined && poem.id !== null && poem.id !== "")
+    return String(poem.id);
+
+  if (poem.uid !== undefined && poem.uid !== null && poem.uid !== "")
+    return String(poem.uid);
+
+  return "legacy-" + stableHash(
+    String(poem.title || "") + "|" +
+    String(poem.date || "") + "|" +
+    String(poem.text || poem.content || "") + "|" + index
+  );
+}
+
+function toBanglaNumber(value) {
+  return String(value).replace(/\d/g, digit => "০১২৩৪৫৬৭৮৯"[Number(digit)]);
+}
+
+function formatDate(dateValue) {
+  if (!dateValue) return "";
+
+  let date;
+
+  if (typeof dateValue === "object" && typeof dateValue.toDate === "function")
+    date = dateValue.toDate();
+  else if (typeof dateValue === "object" && typeof dateValue.seconds === "number")
+    date = new Date(dateValue.seconds * 1000);
+  else
+    date = new Date(String(dateValue));
+
+  if (Number.isNaN(date.getTime())) return "";
+
+  return date.toLocaleDateString("bn-BD", {
+    day: "numeric",
+    month: "short",
+    year: "numeric"
+  });
+}
+
+function getPageNumber(poem, index) {
+  const value = poem._displayPageNumber ?? poem.pageNumber;
+  const number = Number(value);
+
+  return Number.isInteger(number) && number > 0 ? number : index + 1;
+}
+
+function showMessage(message, icon = "🌸") {
+  const empty = document.createElement("div");
+  empty.className = "empty";
+
+  const iconEl = document.createElement("span");
+  iconEl.className = "empty-icon";
+  iconEl.textContent = icon;
+
+  const msg = document.createElement("span");
+  msg.textContent = message;
+
+  empty.append(iconEl, msg);
+  grid.replaceChildren(empty);
+}
+
+function createFolder(poem, index) {
+  const id = getPoemId(poem, index);
+  const hash = stableHash(id);
+
+  const themeIndex =
+    Number.isInteger(Number(poem.themeIndex)) && poem.themeIndex !== ""
+      ? Math.max(0, Math.min(23, Number(poem.themeIndex)))
+      : hash % 24;
+
+  const folder = document.createElement("a");
+  folder.className = "poem-folder theme-" + themeIndex;
+  folder.href = "#poem=" + encodeURIComponent(id);
+  folder.setAttribute("aria-label", "কবিতা খুলুন: " + String(poem.title || "নামহীন কবিতা"));
+
+  folder.addEventListener("click", event => {
+    event.preventDefault();
+    openPoem(id, true);
+  });
+
+  const decoration = document.createElement("span");
+  decoration.className = "folder-decoration";
+  decoration.setAttribute("aria-hidden", "true");
+  decoration.textContent = String(poem.decoration || decorations[(hash >>> 4) % decorations.length]);
+
+  const icon = document.createElement("span");
+  icon.className = "folder-icon";
+  icon.setAttribute("aria-hidden", "true");
+  icon.textContent = String(poem.emoji || folderIcons[(hash >>> 8) % folderIcons.length]);
+
+  const page = document.createElement("span");
+  page.className = "page-number";
+  page.textContent = "পৃষ্ঠা " + toBanglaNumber(getPageNumber(poem, index)).padStart(3, "০");
+
+  const title = document.createElement("span");
+  title.className = "poem-title";
+  title.textContent = String(poem.title || "নামহীন কবিতা");
+
+  const date = document.createElement("span");
+  date.className = "folder-date";
+  date.textContent = formatDate(poem.date || poem.createdAt);
+
+  folder.append(decoration, icon, page, title, date);
+  return folder;
+}
+
+function renderPoems() {
+  grid.replaceChildren();
+
+  if (loadFailed) {
+    showMessage("কবিতা লোড করা যায়নি। ইন্টারনেট, Firebase Config এবং Firestore Rules পরীক্ষা করে আবার চেষ্টা করো।", "⚠️");
+
+    const retry = document.createElement("button");
+    retry.type = "button";
+    retry.textContent = "আবার চেষ্টা করো";
+    retry.style.cssText = "display:block;margin:12px auto 0;padding:9px 15px;border:1px solid #f1d9e9;border-radius:12px;background:#fff0f7;color:#a65389;cursor:pointer";
+    retry.addEventListener("click", loadPoems);
+
+    grid.lastElementChild?.appendChild(retry);
+    return;
+  }
+
+  if (!poemsCache.length) {
+    showMessage("এখনো কোনো কবিতা যোগ করা হয়নি। কবিতা যোগ করলে এখানে দেখা যাবে।");
+    return;
+  }
+
+  const fragment = document.createDocumentFragment();
+  poemsCache.forEach((poem, index) => {
+    fragment.appendChild(createFolder(poem || {}, index));
+  });
+
+  grid.appendChild(fragment);
+}
+
+function animateScreen(screen, back = false) {
+  screen.classList.remove("view-enter", "view-enter-back");
+  void screen.offsetWidth;
+  screen.classList.add(back ? "view-enter-back" : "view-enter");
+
+  screen.addEventListener("animationend", () => {
+    screen.classList.remove("view-enter", "view-enter-back");
+  }, { once: true });
+}
+
+function stopTyping() {
+  typingToken++;
+
+  if (typingTimer) {
+    clearTimeout(typingTimer);
+    typingTimer = null;
+  }
+
+  readerText.classList.remove("typing");
+}
+
+/*
+  Measure the complete poem before animation.
+  Reserve its final height so the card won't grow while typing.
+*/
+function typePoem(text) {
+  stopTyping();
+
+  const token = typingToken;
+  const card = document.querySelector(".reader-card");
+
+  readerText.style.visibility = "hidden";
+  readerText.style.height = "auto";
+  readerText.textContent = text;
+
+  // Force layout calculation using the complete text.
+  const fullTextHeight = readerText.getBoundingClientRect().height;
+
+  // Lock the final text height before starting the animation.
+  readerText.style.height = Math.ceil(fullTextHeight) + "px";
+  readerText.textContent = "";
+  readerText.style.visibility = "visible";
+
+  const reduceMotion =
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (reduceMotion || text.length > 5000) {
+    readerText.textContent = text;
+    return;
+  }
+
+  readerText.classList.add("typing");
+
+  let i = 0;
+  const animatedEnd = Math.min(text.length, 1200);
+  const chunk = text.length > 1200 ? 18 : 8;
+
+  function step() {
+    if (token !== typingToken) return;
+
+    i = Math.min(i + chunk, animatedEnd);
+    readerText.textContent = text.slice(0, i);
+
+    if (i < animatedEnd) {
+      typingTimer = setTimeout(step, 12);
+    } else {
+      readerText.textContent = text;
+      readerText.classList.remove("typing");
+      typingTimer = null;
+    }
+  }
+
+  step();
+}
+
+function showFolders(restoreScroll = true) {
+  stopTyping();
+  currentPoemId = null;
+
+  readerScreen.hidden = true;
+  folderScreen.hidden = false;
+
+  animateScreen(folderScreen, true);
+
+  requestAnimationFrame(() => {
+    window.scrollTo({
+      top: restoreScroll ? folderScrollY : 0,
+      behavior: "auto"
+    });
+  });
+}
+
+function openPoem(id, addHistory) {
+  const index = poemsCache.findIndex((poem, i) =>
+    getPoemId(poem || {}, i) === String(id)
+  );
+
+  if (index === -1) {
+    showFolders(false);
+    return;
+  }
+
+  if (!folderScreen.hidden) folderScrollY = window.scrollY;
+
+  const poem = poemsCache[index] || {};
+  currentPoemId = String(id);
+
+  document.getElementById("readerTitle").textContent =
+    poem.title || "নামহীন কবিতা";
+
+  document.getElementById("readerPage").textContent =
+    "♡ পৃষ্ঠা " + toBanglaNumber(getPageNumber(poem, index)).padStart(3, "০");
+
+  document.getElementById("readerDate").textContent =
+    formatDate(poem.date || poem.createdAt) || "তারিখ উল্লেখ নেই";
+
+  document.getElementById("copyStatus").textContent = "";
+
+  // Reveal reader first so the browser can measure the full poem correctly.
+  folderScreen.hidden = true;
+  readerScreen.hidden = false;
+
+  typePoem(String(poem.text || poem.content || ""));
+
+  animateScreen(readerScreen, false);
+  window.scrollTo({ top: 0, behavior: "auto" });
+
+  const targetHash = "#poem=" + encodeURIComponent(String(id));
+
+  if (addHistory && location.hash !== targetHash) {
+    history.pushState({ poemId: String(id) }, "", targetHash);
+  }
+}
+
+function restoreRouteFromHash() {
+  const match = location.hash.match(/^#poem=(.+)$/);
+
+  if (match) {
+    openPoem(decodeURIComponent(match[1]), false);
+  } else {
+    showFolders(true);
+  }
+}
+
+document.getElementById("readerBack").addEventListener("click", () => {
+  if (location.hash.startsWith("#poem=")) {
+    history.back();
+  } else {
+    showFolders(true);
+  }
+});
+
+window.addEventListener("popstate", restoreRouteFromHash);
+
+function getCurrentPoem() {
+  return poemsCache.find((item, i) =>
+    getPoemId(item || {}, i) === currentPoemId
+  ) || {};
+}
+
+function getCopyText(poem) {
+  return [
+    poem.title || "",
+    String(poem.text || poem.content || "")
+  ].filter(Boolean).join("\n\n");
+}
+
+async function copyTextToClipboard(text) {
+  if (navigator.clipboard && window.isSecureContext) {
+    await navigator.clipboard.writeText(text);
+    return;
+  }
+
+  const area = document.createElement("textarea");
+  area.value = text;
+  area.style.position = "fixed";
+  area.style.left = "-9999px";
+
+  document.body.appendChild(area);
+  area.select();
+
+  const success = document.execCommand("copy");
+  area.remove();
+
+  if (!success) throw new Error("Copy failed");
+}
+
+document.getElementById("copyPoem").addEventListener("click", async () => {
+  const poem = getCurrentPoem();
+  const status = document.getElementById("copyStatus");
+
+  try {
+    await copyTextToClipboard(getCopyText(poem));
+    status.textContent = "♡ কবিতাটি কপি হয়েছে!";
+  } catch (error) {
+    status.textContent = "কপি করা যায়নি। আবার চেষ্টা করো।";
+  }
+});
+
+document.getElementById("sharePoem").addEventListener("click", async () => {
+  const poem = getCurrentPoem();
+  const status = document.getElementById("copyStatus");
+  const text = getCopyText(poem);
+
+  try {
+    if (navigator.share) {
+      await navigator.share({
+        title: poem.title || "মনের ক্যানভাস",
+        text
+      });
+      status.textContent = "♡ শেয়ার অপশন খোলা হয়েছে!";
+    } else {
+      await copyTextToClipboard(text);
+      status.textContent = "♡ শেয়ার সাপোর্ট নেই—কবিতাটি কপি হয়েছে!";
+    }
+  } catch (error) {
+    if (error.name !== "AbortError") {
+      status.textContent = "শেয়ার করা যায়নি। আবার চেষ্টা করো।";
+    }
+  }
+});
+
+async function loadPoems() {
+  loadFailed = false;
+  grid.replaceChildren();
+
+  const loading = document.createElement("div");
+  loading.className = "status-message";
+  loading.textContent = "🌸 অপেক্ষা করুন,লোড হচ্ছে…";
+  grid.appendChild(loading);
+
+  try {
+    const snapshot = await getDocs(collection(db, "poems"));
+
+    poemsCache = snapshot.docs.map(doc => ({
+      ...doc.data(),
+      id: doc.id
+    }));
+
+    const time = value => {
+      if (value && typeof value.toDate === "function") return value.toDate().getTime();
+      if (value && typeof value.seconds === "number") return value.seconds * 1000;
+
+      const parsed = Date.parse(value || "");
+      return Number.isNaN(parsed) ? 0 : parsed;
+    };
+
+    const usedNumbers = new Set(
+      poemsCache.map(p => Number(p.pageNumber))
+        .filter(n => Number.isInteger(n) && n > 0)
+    );
+
+    const missing = poemsCache
+      .filter(p => !(
+        Number.isInteger(Number(p.pageNumber)) &&
+        p.pageNumber !== "" &&
+        Number(p.pageNumber) > 0
+      ))
+      .sort((a, b) =>
+        time(a.createdAt || a.date) - time(b.createdAt || b.date) ||
+        String(a.id).localeCompare(String(b.id))
+      );
+
+    let nextNumber = 1;
+
+    for (const poem of missing) {
+      while (usedNumbers.has(nextNumber)) nextNumber++;
+
+      poem._displayPageNumber = nextNumber;
+      usedNumbers.add(nextNumber);
+      nextNumber++;
+    }
+
+    for (const poem of poemsCache) {
+      if (
+        Number.isInteger(Number(poem.pageNumber)) &&
+        poem.pageNumber !== "" &&
+        Number(poem.pageNumber) > 0
+      ) {
+        poem._displayPageNumber = Number(poem.pageNumber);
+      }
+    }
+
+    poemsCache.sort((a, b) =>
+      Number(b._displayPageNumber || 0) -
+      Number(a._displayPageNumber || 0)
+    );
+
+    renderPoems();
+    restoreRouteFromHash();
+
+  } catch (error) {
+    console.error("Firebase poems load failed:", error);
+    loadFailed = true;
+    renderPoems();
+  }
+}
+
+loadPoems();
+</script>
+</body>
+</html>

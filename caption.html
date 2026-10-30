@@ -1,0 +1,2317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<title>Caption Zone</title>
+ <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Lora:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <style>
+    /* SOCIAL MEDIA ICONS */
+.footer{
+  width:100%;
+  margin:24px auto 0;
+  padding:12px 0 8px;
+  text-align:center;
+  border-top:none;
+}
+
+.footer .social-links{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:19px;
+  margin:0 auto 10px;
+}
+
+.footer .social-links a{
+  display:grid;
+  place-items:center;
+  width:27px;
+  height:27px;
+  color:#776b76;
+  font-size:16px;
+  text-decoration:none;
+  border:none;
+  outline:none;
+  transition:transform .2s ease,color .2s ease;
+  -webkit-tap-highlight-color:transparent;
+}
+
+.footer .social-links a:active{
+  transform:scale(.78);
+  color:#d779a8;
+}
+
+.footer .footer-credit{
+  color:#b090ad;
+  font-size:11px;
+  text-align:center;
+  text-decoration:none;
+}
+    /* CAPTION HOME HEADER FONT */
+.caption-header h1,
+.caption-header p{
+    font-family:'Lora',var(--caption-font-bn),serif !important;
+    font-kerning:normal;
+    text-rendering:optimizeLegibility;
+}
+
+.caption-header h1{
+    font-weight:700;
+}
+
+.caption-header p{
+    font-weight:500;
+}
+    .category-header p{
+    font-family:'Lora',var(--caption-font-bn),serif !important;
+    font-weight:500;
+    font-kerning:normal;
+    text-rendering:optimizeLegibility;
+}
+    /* FIREBASE FOLDER NAME FONT */
+#categoryTitle{
+    font-family:'Lora',var(--caption-font-bn),serif !important;
+    font-weight:700;
+    font-kerning:normal;
+    text-rendering:optimizeLegibility;
+}
+    /* FLOATING BACK SWITCH */
+
+.caption-switch{
+  position:fixed;
+  left:50%;
+  bottom:22px;
+  transform:translateX(-50%);
+  z-index:9999;
+
+  display:grid;
+  place-items:center;
+  width:46px;
+  height:46px;
+
+  border:1px solid #ffffffd9;
+  border-radius:17px;
+  background:linear-gradient(145deg,#ffffffc9,#f8eaf590);
+
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+
+  box-shadow:
+    0 5px 18px #bd91b638,
+    inset 0 1px 3px #ffffff;
+
+  color:#a875a0;
+  font-size:19px;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+
+/* CENTER ICON */
+.caption-switch i{
+  animation:captionLoop 2.8s linear infinite;
+}
+
+/* TWO ROTATING CIRCLES */
+.caption-switch::before,
+.caption-switch::after{
+  content:"";
+  position:absolute;
+  border:1.5px solid transparent;
+  border-radius:50%;
+  pointer-events:none;
+}
+
+/* FIRST CIRCLE */
+.caption-switch::before{
+  inset:-5px;
+  border-top-color:#d99abd;
+  border-right-color:#d99abd;
+  animation:captionRing 3s linear infinite;
+}
+
+/* SECOND CIRCLE */
+.caption-switch::after{
+  inset:-9px;
+  border-bottom-color:#bda2e8;
+  border-left-color:#bda2e8;
+  animation:captionRingReverse 4s linear infinite;
+}
+
+/* CLICK ANIMATION */
+.caption-switch:active{
+  scale:.88;
+}
+
+/* ANIMATIONS */
+@keyframes captionLoop{
+  to{transform:rotate(360deg)}
+}
+
+@keyframes captionRing{
+  to{transform:rotate(360deg)}
+}
+
+@keyframes captionRingReverse{
+  to{transform:rotate(-360deg)}
+}
+    /* CAPTION TYPOGRAPHY — English + Bangla; visual-only update */
+    
+
+    :root{
+      --caption-font-en:'Poppins',sans-serif;
+      --caption-font-bn:'Hind Siliguri','Noto Sans Bengali',sans-serif;
+    }
+
+    body,
+    button,
+    input,
+    textarea,
+    select{
+      font-family:var(--caption-font-en),var(--caption-font-bn),sans-serif;
+    }
+
+    /* Bangla glyphs fall back to Hind Siliguri automatically. */
+    .caption-header h1,
+    .category-header h1,
+    .category-card h2,
+    .caption-card-title,
+    .caption-view-title,
+    .caption-header p,
+    .category-header p,
+    .category-card p,
+    .caption-preview,
+    .caption-view-text,
+    .category-count,
+    .read-more,
+    .caption-date,
+    .caption-view-date,
+    .back-button,
+    .copy-caption-btn,
+    .empty-caption,
+    #firebaseStatus{
+      font-family:var(--caption-font-en),var(--caption-font-bn),sans-serif;
+      font-kerning:normal;
+      text-rendering:optimizeLegibility;
+    }
+
+    .caption-header h1,
+    .category-header h1,
+    .caption-view-title{
+      font-weight:700;
+      letter-spacing:-.35px;
+    }
+
+    .category-card h2,
+    .caption-card-title{
+      font-weight:600;
+      letter-spacing:-.15px;
+    }
+
+    .caption-preview,
+    .caption-view-text,
+    .category-card p{
+      font-weight:400;
+      line-height:1.9;
+    }
+
+    /* English caption typography across folders, previews, titles and full reading.
+       Bangla characters continue to use Hind Siliguri through font fallback. */
+    .category-card h2,
+    .category-card p,
+    .caption-card-title,
+    .caption-preview,
+    .caption-view-title,
+    .caption-view-text{
+      font-family:'Lora',var(--caption-font-bn),serif;
+      font-kerning:normal;
+      text-rendering:optimizeLegibility;
+    }
+
+    .caption-card-title,
+    .caption-view-title{
+      letter-spacing:0;
+    }
+
+    /* =====================================================
+FUTURE UPDATE — SOFT LOVE FOOTER
+===================================================== */
+
+.future-update{
+margin:24px 4px 8px;
+padding:13px 16px;
+
+display:flex;
+align-items:center;
+justify-content:center;
+gap:7px;
+
+text-align:center;
+
+border-radius:16px;
+
+background:
+    linear-gradient(
+        135deg,
+        rgba(255,225,236,.72),
+        rgba(245,235,255,.68),
+        rgba(231,241,255,.65)
+    );
+
+border:1px solid
+    rgba(244,114,182,.18);
+
+box-shadow:
+    0 6px 18px
+    rgba(168,85,247,.07);
+
+color:#9d5b86;
+
+font-size:11px;
+font-weight:600;
+letter-spacing:.15px;
+
+}
+
+.future-heart{
+font-size:15px;
+color:#ec6fae;
+line-height:1;
+}
+    *{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#fffafb;
+    color:#0f172a;
+    overflow-x:hidden;
+}
+
+.caption-page{
+    max-width:620px;
+    margin:auto;
+    padding:18px 15px 60px;
+}
+
+
+/* =========================
+   TYPE 1
+   PAGE / CATEGORY / LIST
+========================= */
+
+.page-enter{
+    animation:pageIn .28s cubic-bezier(.22,.75,.25,1) both;
+    will-change:transform,opacity;
+}
+
+@keyframes pageIn{
+    from{
+        opacity:0;
+        transform:translateY(7px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+
+/* =========================
+   BACK BUTTON
+========================= */
+
+.back-button{
+    border:0;
+    background:#fff;
+
+    padding:9px 14px;
+    border-radius:12px;
+
+    box-shadow:
+        0 4px 12px rgba(225,29,72,.07),
+        0 2px 5px rgba(15,23,42,.04);
+
+    display:flex;
+    align-items:center;
+    gap:5px;
+
+    font:inherit;
+    cursor:pointer;
+
+    transition:transform .10s ease;
+}
+
+.back-button:active{
+    transform:scale(.98);
+}
+
+.back-arrow{
+    font-size:25px;
+    line-height:1;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.caption-header{
+    text-align:center;
+    padding:25px 0;
+}
+
+.caption-header-icon{
+    width:62px;
+    height:62px;
+
+    margin:auto;
+
+    border-radius:20px;
+    background:#fff0f5;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:28px;
+
+    box-shadow:
+        0 5px 15px rgba(225,29,72,.07),
+        0 2px 6px rgba(15,23,42,.04);
+}
+
+.caption-header h1{
+    margin-top:12px;
+    font-size:26px;
+    color:#be185d;
+}
+
+.caption-header p{
+    margin-top:5px;
+    color:#9f6476;
+    font-size:13px;
+}
+
+
+/* =========================
+   CATEGORY GRID
+========================= */
+
+.category-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+}
+
+.category-card{
+    border:1px solid #fce7f3;
+    background:#fff;
+
+    border-radius:20px;
+    padding:20px 15px;
+
+    text-align:left;
+    cursor:pointer;
+
+    box-shadow:
+        0 5px 16px rgba(225,29,72,.07),
+        0 2px 6px rgba(15,23,42,.04);
+
+    animation:boxIn .26s cubic-bezier(.22,.75,.25,1) both;
+
+    will-change:transform,opacity;
+}
+
+.category-card:nth-child(1){
+    animation-delay:.01s;
+}
+
+.category-card:nth-child(2){
+    animation-delay:.02s;
+}
+
+.category-card:nth-child(3){
+    animation-delay:.03s;
+}
+
+.category-card:nth-child(4){
+    animation-delay:.04s;
+}
+
+.category-card:nth-child(5){
+    animation-delay:.05s;
+}
+
+.category-card:nth-child(6){
+    animation-delay:.06s;
+}
+
+@keyframes boxIn{
+    from{
+        opacity:0;
+        transform:translateY(7px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.category-card:active{
+    transform:scale(.987);
+}
+
+.category-icon{
+    width:52px;
+    height:52px;
+
+    border-radius:17px;
+    background:#fff0f5;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:25px;
+    margin-bottom:14px;
+
+    box-shadow:
+        0 4px 12px rgba(225,29,72,.06);
+}
+
+.category-card h2{
+    font-size:16px;
+    color:#0f172a;
+}
+
+.category-card p{
+    margin-top:5px;
+
+    color:#64748b;
+
+    font-size:11px;
+    line-height:1.5;
+}
+
+.category-count{
+    margin-top:13px;
+
+    color:#e11d48;
+
+    font-size:11px;
+    font-weight:700;
+}
+
+
+/* =========================
+   CATEGORY PAGE
+========================= */
+
+.category-page{
+    display:none;
+}
+
+.category-header{
+    text-align:center;
+    padding:20px 0;
+}
+
+.category-header-icon{
+    width:62px;
+    height:62px;
+
+    margin:auto;
+
+    border-radius:20px;
+    background:#fff0f5;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:28px;
+
+    box-shadow:
+        0 5px 15px rgba(225,29,72,.07),
+        0 2px 6px rgba(15,23,42,.04);
+}
+
+.category-header h1{
+    margin-top:11px;
+
+    font-size:24px;
+    color:#be185d;
+}
+
+.category-header p{
+    margin-top:5px;
+
+    color:#9f6476;
+    font-size:13px;
+}
+
+
+/* =========================
+   CAPTION LIST
+========================= */
+
+.caption-list{
+    display:flex;
+    flex-direction:column;
+    gap:11px;
+}
+
+.caption-card{
+    border:1px solid #fce7f3;
+    background:#fff;
+
+    border-radius:18px;
+    padding:16px;
+
+    text-align:left;
+    cursor:pointer;
+
+    box-shadow:
+        0 5px 16px rgba(225,29,72,.07),
+        0 2px 6px rgba(15,23,42,.04);
+
+    animation:boxIn .26s cubic-bezier(.22,.75,.25,1) both;
+
+    will-change:transform,opacity;
+}
+
+.caption-card:nth-child(1){
+    animation-delay:.01s;
+}
+
+.caption-card:nth-child(2){
+    animation-delay:.02s;
+}
+
+.caption-card:nth-child(3){
+    animation-delay:.03s;
+}
+
+.caption-card:nth-child(4){
+    animation-delay:.04s;
+}
+
+.caption-card:nth-child(5){
+    animation-delay:.05s;
+}
+
+.caption-card:nth-child(6){
+    animation-delay:.06s;
+}
+
+.caption-card:nth-child(7){
+    animation-delay:.07s;
+}
+
+.caption-card:nth-child(8){
+    animation-delay:.08s;
+}
+
+.caption-card:active{
+    transform:scale(.992);
+}
+
+.caption-card-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+}
+
+.caption-card-title{
+    font-size:15px;
+    font-weight:700;
+    color:#9d174d;
+}
+
+.caption-date{
+    color:#94a3b8;
+
+    font-size:9px;
+    white-space:nowrap;
+}
+
+.caption-preview{
+    margin-top:9px;
+
+    color:#64748b;
+
+    font-size:12px;
+    line-height:1.6;
+
+    display:-webkit-box;
+
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+
+    overflow:hidden;
+}
+
+.read-more{
+    margin-top:10px;
+
+    color:#e11d48;
+
+    font-size:10px;
+    font-weight:700;
+}
+
+.caption-view{
+    display:none;
+}
+
+
+/* =========================
+   FULL CAPTION BOX
+   TYPE 2
+========================= */
+
+.caption-view-box{
+    background:#fff;
+
+    border-radius:22px;
+
+    padding:22px 18px;
+    margin-top:18px;
+
+    border:1px solid #fce7f3;
+
+    box-shadow:
+        0 8px 24px rgba(225,29,72,.09),
+        0 3px 9px rgba(15,23,42,.06);
+
+    animation:captionIn .55s cubic-bezier(.22,.75,.25,1) both;
+
+    will-change:transform,opacity;
+}
+
+@keyframes captionIn{
+    from{
+        opacity:0;
+        transform:translateY(16px) scale(.975);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+}
+
+.caption-view-title{
+    font-size:22px;
+    line-height:1.4;
+    color:#9d174d;
+}
+
+.caption-view-date{
+    margin-top:6px;
+
+    color:#94a3b8;
+    font-size:10px;
+}
+
+
+/* =========================
+   TYPING TEXT BOX
+   TYPE 2
+========================= */
+
+.caption-view-text{
+    margin-top:20px;
+
+    padding:18px 16px;
+
+    background:#fff7fa;
+
+    border:1px solid #fce7f3;
+
+    border-radius:18px;
+
+    color:#4a2632;
+
+    font-size:14px;
+    line-height:1.9;
+
+    white-space:pre-line;
+
+    position:relative;
+    overflow:hidden;
+
+    box-shadow:
+        0 7px 20px rgba(225,29,72,.08),
+        0 3px 8px rgba(15,23,42,.05);
+
+    animation:textIn .62s cubic-bezier(.22,.75,.25,1) both;
+
+    will-change:transform,opacity;
+}
+
+@keyframes textIn{
+    from{
+        opacity:0;
+        transform:translateY(13px) scale(.985);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+}
+
+.caption-view-text::before{
+    content:"♥";
+
+    position:absolute;
+
+    top:8px;
+    right:10px;
+
+    color:#f9a8d4;
+
+    font-size:12px;
+}
+
+
+/* =========================
+   COPY BUTTON
+========================= */
+
+.copy-caption-btn{
+    width:100%;
+
+    border:0;
+    border-radius:12px;
+
+    padding:11px;
+    margin-top:18px;
+
+    background:#e11d48;
+    color:#fff;
+
+    font:inherit;
+    font-size:12px;
+    font-weight:700;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 5px 14px rgba(225,29,72,.10),
+        0 2px 5px rgba(15,23,42,.04);
+
+    transition:transform .10s ease;
+}
+
+.copy-caption-btn:active{
+    transform:scale(.985);
+}
+
+.copy-caption-btn.copied{
+    animation:copyPop .12s ease-out;
+}
+
+@keyframes copyPop{
+    0%{
+        transform:scale(.985);
+    }
+
+    100%{
+        transform:scale(1);
+    }
+}
+
+
+/* =========================
+   EMPTY
+========================= */
+
+.empty-caption{
+    text-align:center;
+
+    padding:60px 20px;
+
+    color:#64748b;
+
+    font-size:13px;
+
+    animation:boxIn .26s cubic-bezier(.22,.75,.25,1) both;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:380px){
+
+    .category-card{
+        padding:17px 13px;
+    }
+
+    .caption-view-box{
+        padding:20px 15px;
+    }
+
+    .caption-view-text{
+        padding:16px 14px;
+        font-size:13px;
+    }
+}
+
+
+/* =========================
+   REDUCED MOTION
+========================= */
+
+@media(prefers-reduced-motion:reduce){
+
+    *,
+    *::before,
+    *::after{
+        animation:none !important;
+        transition:none !important;
+    }
+}
+  
+/* MR WORLD HEADER — copied from the poetry home page */
+.topbar,.reader-topbar{
+  display:flex;align-items:center;gap:12px;
+  padding:0 13px;border:1px solid #ffffffd9;
+  border-radius:19px;background:#ffffff80;
+}
+.topbar{position:relative;justify-content:space-between;box-shadow:0 7px 22px #b78caf0c;margin-bottom:20px;box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);}
+.brand{display:flex;align-items:center;gap:9px;font-size:12px;font-weight:900;letter-spacing:2px;color:#a16e9e;min-width:35px}
+.brand-mark{position:relative;display:grid;place-items:center;width:35px;height:35px;flex-shrink:0;border:1px solid #ffffffd9;border-radius:13px 13px 13px 5px;background:linear-gradient(145deg,#f3b0d0,#b3a0f0);color:white;font-size:19px;text-shadow:0 2px 5px #a6538955;box-shadow:inset 0 1px 0 #ffffffb8,0 3px 8px #d58dbb35}
+.brand-mark:after{content:"✦";position:absolute;right:3px;top:2px;font-size:9px;color:#fff;text-shadow:0 1px 4px #a65389}
+.topbar .brand-mark{width:60px;height:60px;transform:translateX(-5px);flex-shrink:0;display:block;overflow:visible;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;color:transparent;font-size:0;text-shadow:none}
+.topbar .brand-mark:after{content:none}
+.topbar .brand-logo-svg{display:block;width:100%;height:100%;overflow:visible}
+.brand-copy{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;width:max-content;max-width:calc(100% - 112px);text-align:center;letter-spacing:0;line-height:1.25}
+.brand-title{font-size:21px;font-weight:900;white-space:nowrap;background:linear-gradient(90deg,#a65b91 0%,#bd6a9e 55%,#98518b 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#a65b91}
+.brand-subtitle{display:flex;align-items:center;justify-content:center;gap:7px;font-size:9px;font-weight:800;letter-spacing:1.6px;white-space:nowrap;color:#c17fa7;font-family:"Cormorant Garamon",serif}
+.brand-subtitle:before,.brand-subtitle:after{content:"";display:block;width:15px;height:1.5px;border-radius:3px;background:linear-gradient(90deg,#e9a0c5,#d47eae)}
+.top-icon{display:grid;place-items:center;width:39px;height:39px;flex-shrink:0;border:1px solid white;border-radius:14px;background:#ffffff99;color:#d979a9;font-size:21px}
+@media(max-width:360px){.brand-title{font-size:20px}.brand-subtitle{font-size:8px;letter-spacing:1px}.brand-copy{max-width:calc(100% - 100px)}.brand-subtitle:before,.brand-subtitle:after{width:10px}}
+
+  </style>
+</head>
+
+<body>
+
+
+<!-- =========================
+     CATEGORY PAGE
+========================= -->
+
+<main id="categoryPage" class="caption-page">
+
+    <header class="topbar">
+      <a class="brand"  aria-label="MR WORLD home">
+        <span class="brand-mark" aria-label="Pink heart logo">
+          <svg class="brand-logo-svg" viewBox="0 0 220 230" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Pink heart in a white rounded glass box">
+            <defs>
+              <linearGradient id="heartBox" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#fffefe"/>
+                <stop offset="100%" stop-color="#fff9fc"/>
+              </linearGradient>
+              <linearGradient id="heartStroke" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#ee8bb6"/>
+                <stop offset="100%" stop-color="#e76c9f"/>
+              </linearGradient>
+              <filter id="softGlow" x="-35%" y="-35%" width="170%" height="170%">
+                <feGaussianBlur stdDeviation="5"/>
+              </filter>
+            </defs>
+            <rect x="24" y="35" width="172" height="153" rx="48" fill="#f2b7d3" opacity=".22" filter="url(#softGlow)"/>
+            <rect x="25" y="36" width="170" height="151" rx="47" fill="url(#heartBox)" stroke="#f9d6e7" stroke-width="2.4"/>
+            <rect x="29" y="40" width="162" height="143" rx="43" fill="none" stroke="#fff" stroke-width="2.8"/>
+            <path d="M37 44 Q23 58 28 78" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".95"/>
+            <path d="M27 99 C7 108 20 126 46 139 C66 151 80 158 94 157" fill="none" stroke="#f6c4dc" stroke-width="3.2" stroke-linecap="round" opacity=".9"/>
+            <path d="M193 99 C213 108 200 126 174 139 C154 151 140 158 126 157" fill="none" stroke="#f6c4dc" stroke-width="3.2" stroke-linecap="round" opacity=".9"/>
+            <text x="110" y="126" text-anchor="middle" font-family="Arial, sans-serif" font-size="68" font-weight="500" fill="#e76c9f" opacity="0.45" filter="url(#softGlow)">ᥫ᭡</text>
+            <text x="110" y="126" text-anchor="middle" font-family="Arial, sans-serif" font-size="68" font-weight="500" fill="url(#heartStroke)">ᥫ᭡</text>
+            
+            <path d="M146 65 L151 76 L162 81 L151 86 L146 97 L141 86 L130 81 L141 76 Z" fill="#e982ad"/>
+            <path d="M105 177 C100 169 90 171 90 179 C90 186 105 193 105 193 C105 193 120 186 120 179 C120 171 110 169 105 177Z" fill="#e875a8"/>
+          </svg>
+        </span>
+        <span class="brand-copy">
+          <span class="brand-title">মনের ক্যানভাস</span>
+          <span class="brand-subtitle">RIFAT'S CAPTION SPACE</span>
+        </span>
+      </a>
+      
+<div class="top-icon brand-mark" aria-label="Pink heart logo">
+  <svg class="brand-logo-svg" viewBox="0 0 220 230"
+       xmlns="http://www.w3.org/2000/svg"
+       role="img" aria-label="Pink heart logo">
+    <defs>
+      <linearGradient id="topHeartBox" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#fffefe"/>
+        <stop offset="100%" stop-color="#fff9fc"/>
+      </linearGradient>
+      <linearGradient id="topHeartStroke" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#ee8bb6"/>
+        <stop offset="100%" stop-color="#e76c9f"/>
+      </linearGradient>
+      <filter id="topSoftGlow" x="-35%" y="-35%" width="170%" height="170%">
+        <feGaussianBlur stdDeviation="5"/>
+      </filter>
+    </defs>
+
+    <rect x="24" y="35" width="172" height="153" rx="48"
+          fill="#f2b7d3" opacity=".22" filter="url(#topSoftGlow)"/>
+    <rect x="25" y="36" width="170" height="151" rx="47"
+          fill="url(#topHeartBox)" stroke="#f9d6e7" stroke-width="2.4"/>
+    <rect x="29" y="40" width="162" height="143" rx="43"
+          fill="none" stroke="#fff" stroke-width="2.8"/>
+
+    <path d="M37 44 Q23 58 28 78"
+          fill="none" stroke="#fff" stroke-width="5"
+          stroke-linecap="round" opacity=".95"/>
+    <path d="M27 99 C7 108 20 126 46 139 C66 151 80 158 94 157"
+          fill="none" stroke="#f6c4dc" stroke-width="3.2"
+          stroke-linecap="round" opacity=".9"/>
+    <path d="M193 99 C213 108 200 126 174 139 C154 151 140 158 126 157"
+          fill="none" stroke="#f6c4dc" stroke-width="3.2"
+          stroke-linecap="round" opacity=".9"/>
+
+    <text x="110" y="126" text-anchor="middle"
+          font-family="Arial, sans-serif" font-size="68"
+          font-weight="500" fill="#e76c9f" opacity=".45"
+          filter="url(#topSoftGlow)">ᥫ᭡</text>
+    <text x="110" y="126" text-anchor="middle"
+          font-family="Arial, sans-serif" font-size="68"
+          font-weight="500" fill="url(#topHeartStroke)">ᥫ᭡</text>
+
+    <path d="M146 65 L151 76 L162 81 L151 86 L146 97 L141 86 L130 81 L141 76 Z"
+          fill="#e982ad"/>
+    <path d="M105 177 C100 169 90 171 90 179 C90 186 105 193 105 193 C105 193 120 186 120 179 C120 171 110 169 105 177Z"
+          fill="#e875a8"/>
+  </svg>
+</div>
+
+    </header>
+
+    <header class="caption-header">
+
+        <div class="caption-header-icon">
+            ✍️
+        </div>
+
+        <h1>
+            Caption Zone
+        </h1>
+
+        <p>
+            Words from my mind and collected 
+        </p>
+
+    </header>
+
+
+    <section
+        id="categoryGrid"
+        class="category-grid">
+    </section>
+<!-- FLOATING BACK SWITCH -->
+
+<button
+  class="caption-switch"
+  type="button"
+  aria-label="Go Back"
+  onclick="history.back()">
+
+  <i class="fa-solid fa-repeat"></i>
+
+</button>
+  <footer class="footer">
+
+  <div class="social-links">
+
+    <a href="https://facebook.com/rifatthe888" target="_blank" rel="noopener" aria-label="Facebook">
+      <i class="fa-brands fa-facebook-f"></i>
+    </a>
+
+    <a href="https://instagram.com/rifatthe777" target="_blank" rel="noopener" aria-label="Instagram">
+      <i class="fa-brands fa-instagram"></i>
+    </a>
+
+    <a href="https://tiktok.com/@rifatthe888" target="_blank" rel="noopener" aria-label="TikTok">
+      <i class="fa-brands fa-tiktok"></i>
+    </a>
+
+    <a href="https://youtube.com/@primerifat01" target="_blank" rel="noopener" aria-label="YouTube">
+      <i class="fa-brands fa-youtube"></i>
+    </a>
+
+  </div>
+
+  <div class="footer-credit">𝙼𝙰𝙳𝙴 𝙱𝚈 𝚁𝙸𝙵𝙰𝚃</div>
+
+  <br>
+</footer>
+</main>
+
+
+
+<!-- =========================
+     CAPTION LIST PAGE
+========================= -->
+
+<main
+    id="captionListPage"
+    class="caption-page category-page">
+
+    <button
+        class="back-button"
+        onclick="backToCategories()">
+
+        <span class="back-arrow">‹</span>
+
+        <span>Back</span>
+
+    </button>
+
+
+    <header class="category-header">
+
+        <div
+            id="categoryIcon"
+            class="category-header-icon">
+            ❤️
+        </div>
+
+        <h1 id="categoryTitle">
+            Feelings
+        </h1>
+
+        <p>
+            My thoughts & captions
+        </p>
+
+    </header>
+
+
+    <section
+        id="captionList"
+        class="caption-list">
+    </section>
+
+</main>
+
+
+
+<!-- =========================
+     FULL CAPTION
+========================= -->
+
+<main
+    id="captionViewPage"
+    class="caption-page category-page">
+
+    <button
+        class="back-button"
+        onclick="backToCaptionList()">
+
+        <span class="back-arrow">‹</span>
+
+        <span>Back</span>
+
+    </button>
+
+
+    <section
+        id="captionView"
+        class="caption-view-box page-enter">
+    </section>
+
+</main>
+
+<script>
+
+/* =====================================================
+   CATEGORY DATA
+===================================================== */
+
+let captionCategories = [];
+
+
+
+
+/* =====================================================
+   STATE
+===================================================== */
+
+let selectedCategory = null;
+let selectedCaption = null;
+
+let captionPageState = "categories";
+
+let categoryScrollPositions = {};
+
+let categoriesScrollPosition = 0;
+
+
+/* =========================
+   SCROLL RESTORATION
+========================= */
+
+if ("scrollRestoration" in history) {
+
+    history.scrollRestoration = "manual";
+
+}
+
+
+/* =====================================================
+   INITIAL HISTORY
+===================================================== */
+
+history.replaceState(
+    {
+        page:"caption-home",
+        scrollY:0
+    },
+    "",
+    window.location.href
+);
+
+
+/* =====================================================
+   SHOW CATEGORIES
+===================================================== */
+
+function showCategories(restoreScroll = false){
+
+    const categoryPage =
+        document.getElementById(
+            "categoryPage"
+        );
+
+    const captionListPage =
+        document.getElementById(
+            "captionListPage"
+        );
+
+    const captionViewPage =
+        document.getElementById(
+            "captionViewPage"
+        );
+
+
+    categoryPage.style.display = "block";
+
+    captionListPage.style.display = "none";
+
+    captionViewPage.style.display = "none";
+
+
+    const grid =
+        document.getElementById(
+            "categoryGrid"
+        );
+
+
+    grid.innerHTML = "";
+
+
+    captionCategories.forEach(
+        category => {
+
+            const card =
+                document.createElement(
+                    "button"
+                );
+
+
+            card.className =
+                "category-card";
+
+
+            card.innerHTML = `
+
+                <div class="category-icon">
+                    ${category.icon}
+                </div>
+
+                <h2>
+                    ${category.name}
+                </h2>
+
+                <p>
+                    ${category.description}
+                </p>
+
+                <div class="category-count">
+                    ${category.captions.length}
+                    Captions →
+                </div>
+
+            `;
+
+
+            card.onclick = () => {
+
+                openCategory(
+                    category.id
+                );
+
+            };
+
+
+            grid.appendChild(card);
+
+        }
+    );
+
+
+    if(restoreScroll){
+
+        requestAnimationFrame(() => {
+
+            window.scrollTo({
+                top:
+                    categoriesScrollPosition,
+                left:0,
+                behavior:"auto"
+            });
+
+        });
+
+    }
+
+}
+
+
+/* =====================================================
+   OPEN CATEGORY
+===================================================== */
+
+function openCategory(id){
+
+    selectedCategory =
+        captionCategories.find(
+            category =>
+                category.id === id
+        );
+
+
+    if(!selectedCategory) return;
+
+
+    categoriesScrollPosition =
+        window.scrollY;
+
+
+    history.replaceState(
+        {
+            page:"caption-home",
+            scrollY:
+                categoriesScrollPosition
+        },
+        "",
+        window.location.href
+    );
+
+
+    captionPageState = "list";
+
+
+    const categoryPage =
+        document.getElementById(
+            "categoryPage"
+        );
+
+    const captionListPage =
+        document.getElementById(
+            "captionListPage"
+        );
+
+    const captionViewPage =
+        document.getElementById(
+            "captionViewPage"
+        );
+
+
+    categoryPage.style.display = "none";
+
+    captionViewPage.style.display = "none";
+
+    captionListPage.style.display = "block";
+
+
+    document
+        .getElementById(
+            "categoryIcon"
+        )
+        .textContent =
+            selectedCategory.icon;
+
+
+    document
+        .getElementById(
+            "categoryTitle"
+        )
+        .textContent =
+            selectedCategory.name;
+
+
+    renderCaptions();
+
+
+    history.pushState(
+        {
+            page:"caption-category",
+            category:id,
+            scrollY:0
+        },
+        "",
+        "#caption=" + id
+    );
+
+
+    requestAnimationFrame(() => {
+
+        window.scrollTo({
+            top:0,
+            left:0,
+            behavior:"auto"
+        });
+
+
+        captionListPage.classList.remove(
+            "page-enter"
+        );
+
+
+        void captionListPage.offsetWidth;
+
+
+        captionListPage.classList.add(
+            "page-enter"
+        );
+
+    });
+
+}
+
+
+/* =====================================================
+   RENDER CAPTIONS
+===================================================== */
+
+function renderCaptions(){
+
+    const list =
+        document.getElementById(
+            "captionList"
+        );
+
+
+    list.innerHTML = "";
+
+
+    if(
+        !selectedCategory ||
+        selectedCategory.captions.length === 0
+    ){
+
+        list.innerHTML = `
+
+            <div class="empty-caption">
+
+                ✍️
+
+                <p>
+                    No captions available
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    selectedCategory.captions.forEach(
+        (caption,index) => {
+
+            const card =
+                document.createElement(
+                    "article"
+                );
+
+
+            card.className =
+                "caption-card";
+
+
+            const captionNumber =
+                Number(caption.order) || (index + 1);
+
+
+            card.innerHTML = `
+
+                <div class="caption-card-top">
+
+                    <div class="caption-card-title">
+                        ${caption.title}
+                    </div>
+
+                    <div class="caption-date">
+                        Caption No. ${captionNumber}
+                    </div>
+
+                </div>
+
+
+                <div class="caption-preview">
+                    ${caption.text}
+                </div>
+
+
+                <div class="read-more">
+                    Read Caption →
+                </div>
+
+            `;
+
+
+            card.onclick = () => {
+
+                openCaption(index);
+
+            };
+
+
+            list.appendChild(card);
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   OPEN FULL CAPTION
+===================================================== */
+
+function openCaption(index){
+
+    selectedCaption =
+        selectedCategory.captions[index];
+
+
+    if(!selectedCaption) return;
+
+
+    categoryScrollPositions[
+        selectedCategory.id
+    ] = window.scrollY;
+
+
+    const savedScroll =
+        window.scrollY;
+
+
+    captionPageState = "view";
+
+
+    const categoryPage =
+        document.getElementById(
+            "categoryPage"
+        );
+
+    const captionListPage =
+        document.getElementById(
+            "captionListPage"
+        );
+
+    const captionViewPage =
+        document.getElementById(
+            "captionViewPage"
+        );
+
+    const view =
+        document.getElementById(
+            "captionView"
+        );
+
+
+    categoryPage.style.display = "none";
+
+    captionListPage.style.display = "none";
+
+    captionViewPage.style.display = "block";
+
+
+    const captionNumber =
+        Number(selectedCaption.order) || (index + 1);
+
+
+    view.innerHTML = `
+
+        <div class="caption-view-title">
+            ${selectedCaption.title}
+        </div>
+
+
+        <div class="caption-view-date">
+            Caption No. ${captionNumber}
+        </div>
+
+
+        <div
+            id="typingCaption"
+            class="caption-view-text">
+        </div>
+
+
+        <button
+            class="copy-caption-btn"
+            onclick="copyCaption(this)">
+
+            Copy
+
+        </button>
+
+    `;
+
+
+    view.classList.remove(
+        "page-enter"
+    );
+
+
+    void view.offsetWidth;
+
+
+    view.classList.add(
+        "page-enter"
+    );
+
+
+    const typingElement =
+        document.getElementById(
+            "typingCaption"
+        );
+
+
+    /*
+       Height আগে calculate করা হচ্ছে।
+       এতে typing শুরু হওয়ার সময়
+       layout jump হবে না।
+    */
+
+    typingElement.textContent =
+        selectedCaption.text;
+
+
+    const finalHeight =
+        typingElement.scrollHeight;
+
+
+    typingElement.style.height =
+        finalHeight + "px";
+
+
+    typingElement.textContent = "";
+
+
+    requestAnimationFrame(() => {
+
+        typeCaption(
+            selectedCaption.text
+        );
+
+    });
+
+
+    history.pushState(
+        {
+            page:"caption-view",
+            category:
+                selectedCategory.id,
+            caption:index,
+            scrollY:savedScroll
+        },
+        "",
+        "#caption=" +
+        selectedCategory.id +
+        "&read=" +
+        index
+    );
+
+
+    requestAnimationFrame(() => {
+
+        window.scrollTo({
+            top:0,
+            left:0,
+            behavior:"auto"
+        });
+
+    });
+
+}
+
+
+/* =====================================================
+   TYPING SYSTEM
+===================================================== */
+
+function typeCaption(text){
+
+    const typingElement =
+        document.getElementById(
+            "typingCaption"
+        );
+
+
+    if(!typingElement) return;
+
+
+    typingElement.textContent = "";
+
+
+    let index = 0;
+
+    const typingSpeed = 25;
+
+
+    function type(){
+
+        if(index < text.length){
+
+            typingElement.textContent +=
+                text.charAt(index);
+
+            index++;
+
+
+            setTimeout(
+                type,
+                typingSpeed
+            );
+
+        }
+
+    }
+
+
+    type();
+
+}
+
+
+/* =====================================================
+   COPY CAPTION
+===================================================== */
+
+function copyCaption(button){
+
+    if(!selectedCaption) return;
+
+
+    const text =
+        selectedCaption.text;
+
+
+    navigator.clipboard
+        .writeText(text)
+        .then(function(){
+
+            button.textContent =
+                "Copied!";
+
+
+            button.classList.add(
+                "copied"
+            );
+
+
+            setTimeout(function(){
+
+                button.textContent =
+                    "Copy";
+
+
+                button.classList.remove(
+                    "copied"
+                );
+
+            },1200);
+
+        })
+        .catch(function(){
+
+            const textarea =
+                document.createElement(
+                    "textarea"
+                );
+
+
+            textarea.value = text;
+
+
+            document.body.appendChild(
+                textarea
+            );
+
+
+            textarea.select();
+
+
+            document.execCommand(
+                "copy"
+            );
+
+
+            textarea.remove();
+
+
+            button.textContent =
+                "Copied!";
+
+
+            button.classList.add(
+                "copied"
+            );
+
+
+            setTimeout(function(){
+
+                button.textContent =
+                    "Copy";
+
+
+                button.classList.remove(
+                    "copied"
+                );
+
+            },1200);
+
+        });
+
+}
+
+
+/* =====================================================
+   BACK TO CATEGORIES
+===================================================== */
+
+function backToCategories(){
+
+    if(
+        captionPageState === "list"
+    ){
+
+        history.back();
+
+    }
+
+}
+
+
+/* =====================================================
+   BACK TO CAPTION LIST
+===================================================== */
+
+function backToCaptionList(){
+
+    if(
+        captionPageState === "view"
+    ){
+
+        history.back();
+
+    }
+
+}
+
+
+/* =====================================================
+   BACK TO HOME
+===================================================== */
+
+function backToHome(){
+
+    history.back();
+
+}
+
+
+/* =====================================================
+   PHONE / BROWSER BACK
+===================================================== */
+
+window.addEventListener(
+    "popstate",
+    function(event){
+
+        const state =
+            event.state;
+
+
+        /* ==========================================
+           FULL CAPTION → CAPTION LIST
+        ========================================== */
+
+        if(
+            state &&
+            state.page === "caption-category"
+        ){
+
+            selectedCategory =
+                captionCategories.find(
+                    category =>
+                        category.id ===
+                        state.category
+                );
+
+
+            if(!selectedCategory){
+
+                showCategories(true);
+
+                return;
+
+            }
+
+
+            selectedCaption = null;
+
+
+            const categoryPage =
+                document.getElementById(
+                    "categoryPage"
+                );
+
+            const captionListPage =
+                document.getElementById(
+                    "captionListPage"
+                );
+
+            const captionViewPage =
+                document.getElementById(
+                    "captionViewPage"
+                );
+
+
+            categoryPage.style.display =
+                "none";
+
+
+            captionViewPage.style.display =
+                "none";
+
+
+            captionListPage.style.display =
+                "block";
+
+
+            document
+                .getElementById(
+                    "categoryIcon"
+                )
+                .textContent =
+                    selectedCategory.icon;
+
+
+            document
+                .getElementById(
+                    "categoryTitle"
+                )
+                .textContent =
+                    selectedCategory.name;
+
+
+            renderCaptions();
+
+
+            captionPageState =
+                "list";
+
+
+            const restorePosition =
+                categoryScrollPositions[
+                    selectedCategory.id
+                ];
+
+
+            requestAnimationFrame(() => {
+
+                window.scrollTo({
+
+                    top:
+                        typeof restorePosition ===
+                        "number"
+                            ? restorePosition
+                            : 0,
+
+                    left:0,
+
+                    behavior:"auto"
+
+                });
+
+
+                captionListPage.classList.remove(
+                    "page-enter"
+                );
+
+
+                void captionListPage.offsetWidth;
+
+
+                captionListPage.classList.add(
+                    "page-enter"
+                );
+
+            });
+
+
+            return;
+
+        }
+
+
+        /* ==========================================
+           CATEGORY → CATEGORY HOME
+        ========================================== */
+
+        if(
+            state &&
+            state.page === "caption-home"
+        ){
+
+            selectedCategory = null;
+
+            selectedCaption = null;
+
+
+            captionPageState =
+                "categories";
+
+
+            if(
+                typeof state.scrollY ===
+                "number"
+            ){
+
+                categoriesScrollPosition =
+                    state.scrollY;
+
+            }
+
+
+            showCategories(true);
+
+
+            return;
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   START
+===================================================== */
+
+showCategories();
+
+
+window.scrollTo({
+
+    top:0,
+
+    left:0,
+
+    behavior:"auto"
+
+});
+</script>
+
+<!-- =====================================================
+     FIREBASE — SAME PROJECT AS THE OTHER PAGE
+     Firestore collection: poems
+     ===================================================== -->
+<script type="module">
+import {
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+
+import {
+    getFirestore,
+    collection,
+    getDocs
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyBc1EP0Z4aXq9hOjjImY4HNF7hDsxLoVU4",
+    authDomain: "world-poetry-f8a06.firebaseapp.com",
+    projectId: "world-poetry-f8a06",
+    storageBucket: "world-poetry-f8a06.firebasestorage.app",
+    messagingSenderId: "112670737432",
+    appId: "1:112670737432:web:2b9bbb1e41fcfeb5506f6d"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+/* =====================================================
+   FIREBASE STATUS
+===================================================== */
+
+function showFirebaseMessage(type, text) {
+    let box = document.getElementById("firebaseStatus");
+
+    if (!box) {
+        box = document.createElement("div");
+        box.id = "firebaseStatus";
+        box.style.cssText = `
+            margin: 10px 0 18px;
+            padding: 12px 14px;
+            border-radius: 14px;
+            text-align: center;
+            font-size: 12px;
+            line-height: 1.6;
+            background: #fff7fa;
+            border: 1px solid #fce7f3;
+            color: #64748b;
+        `;
+
+        const grid = document.getElementById("categoryGrid");
+        if (grid && grid.parentNode) {
+            grid.parentNode.insertBefore(box, grid);
+        }
+    }
+
+    box.textContent = text;
+    box.style.display = "block";
+
+    if (type === "success") {
+        box.style.color = "#15803d";
+    } else if (type === "error") {
+        box.style.color = "#dc2626";
+    } else {
+        box.style.color = "#64748b";
+    }
+}
+
+/* =====================================================
+   LOAD FOLDERS + CAPTIONS
+===================================================== */
+
+async function loadCaptionPage() {
+    showFirebaseMessage(
+        "loading",
+        "⏳ Captions are loading..."
+    );
+
+    try {
+        const [folderSnapshot, captionSnapshot] =
+            await Promise.all([
+                getDocs(collection(db, "captionFolders")),
+                getDocs(collection(db, "captions"))
+            ]);
+
+        /* =========================
+           FOLDERS
+        ========================= */
+
+        captionCategories = folderSnapshot.docs.map(doc => {
+            const data = doc.data();
+
+            return {
+                id: doc.id,
+                name: data.name || "Folder",
+                icon: data.emoji || "📁",
+                description: data.description || "My captions",
+                order: Number(data.order) || null,
+                captions: []
+            };
+        });
+
+        /* =========================
+           FOLDER MAP
+        ========================= */
+
+        const folderMap = new Map();
+
+        captionCategories.forEach(folder => {
+            folderMap.set(folder.id, folder);
+        });
+
+        /* =========================
+           CAPTIONS
+        ========================= */
+
+        captionSnapshot.docs.forEach(doc => {
+            const data = doc.data();
+
+            const folder = folderMap.get(data.folderId);
+
+            if (
+                folder &&
+                data.title &&
+                data.text
+            ) {
+                folder.captions.push({
+                    firebaseId: doc.id,
+                    title: data.title,
+                    text: data.text,
+                    order: Number(data.order) || null
+                });
+            }
+        });
+
+        /* =====================================================
+           FINAL ORDERING
+           FOLDERS: OLD → NEW
+           CAPTIONS: NEW → OLD
+           CAPTION NUMBER: 1, 2, 3... (permanent order)
+        ===================================================== */
+
+        // Give old folders without an order a normal 1,2,3... order.
+        const foldersWithoutOrder = captionCategories
+            .filter(folder => !Number.isFinite(folder.order))
+            .map((folder, index) => ({ folder, index }));
+
+        let nextFolderOrder =
+            Math.max(
+                0,
+                ...captionCategories
+                    .map(folder => Number(folder.order) || 0)
+            );
+
+        foldersWithoutOrder
+            .sort((a, b) => a.index - b.index)
+            .forEach(item => {
+                item.folder.order = ++nextFolderOrder;
+            });
+
+        // Folder = OLD → NEW
+        captionCategories.sort((a, b) =>
+            (Number(a.order) || 0) - (Number(b.order) || 0)
+        );
+
+        // Caption number is assigned OLD → NEW,
+        // but displayed NEW → OLD.
+        captionCategories.forEach(folder => {
+            let nextCaptionOrder =
+                Math.max(
+                    0,
+                    ...folder.captions
+                        .map(caption => Number(caption.order) || 0)
+                );
+
+            folder.captions
+                .filter(caption => !Number.isFinite(caption.order))
+                .forEach(caption => {
+                    caption.order = ++nextCaptionOrder;
+                });
+
+            // NEW → OLD display
+            folder.captions.sort((a, b) =>
+                (Number(b.order) || 0) - (Number(a.order) || 0)
+            );
+        });
+
+        /* =========================
+           SHOW PAGE
+        ========================= */
+
+        if (typeof showCategories === "function") {
+            showCategories();
+        }
+
+        /* =========================
+           EMPTY STATE
+        ========================= */
+
+        if (captionCategories.length === 0) {
+
+    showFirebaseMessage(
+        "empty",
+        "✍️ No folders or captions have been added yet. More captions will be added soon."
+    );
+
+} else {
+
+    const totalCaptions =
+        captionCategories.reduce(
+            (total, folder) =>
+                total + folder.captions.length,
+            0
+        );
+
+    if (totalCaptions === 0) {
+
+        showFirebaseMessage(
+            "empty",
+            "✍️ Folders are available, but no captions have been added yet."
+        );
+
+    } else {
+
+        // Caption load হয়ে গেলে loading message সরিয়ে দেবে
+        const box =
+            document.getElementById("firebaseStatus");
+
+        if (box) {
+            box.style.display = "none";
+        }
+
+    }
+}
+
+} catch (error) {
+
+    console.error(
+        "Caption Firebase Error:",
+        error
+    );
+
+    captionCategories = [];
+
+    if (typeof showCategories === "function") {
+        showCategories();
+    }
+
+    showFirebaseMessage(
+        "error",
+        "⚠️ Captions could not be loaded. Please check your internet connection or Firebase settings."
+    );
+
+}
+}
+
+/* =========================
+   START
+========================= */
+
+loadCaptionPage();
+
+</script>
+
+</body>
+</html>
