@@ -75,6 +75,11 @@
   scale:.88;
 }
 
+/* Keep the caption switch hidden while a poem is open. */
+#readerScreen:not([hidden]) ~ .caption-switch{
+  display:none;
+}
+
 @keyframes captionLoop{
   to{transform:rotate(360deg)}
 }
@@ -681,7 +686,7 @@ button{font:inherit}
         <div class="status-message">🌸 Firebase থেকে কবিতা লোড হচ্ছে…</div>
       </div>
     </section>
-<footer class="footer">
+<footer class="footer" hidden>
 
     <a href="https://facebook.com/@rifatthe888" target="_blank" rel="noopener" aria-label="Facebook">
   <div class="social-links">
@@ -704,12 +709,6 @@ button{font:inherit}
   <div class="footer-credit">𝙼𝙰𝙳𝙴 𝙱𝚈 𝚁𝙸𝙵𝙰𝚃</div>
 <br><br><br>
 </footer>
-    <!-- FLOATING CAPTION SWITCH -->
-<a href="caption.html"
-   class="caption-switch"
-   aria-label="Open Caption Page">
-  <i class="fa-solid fa-repeat"></i>
-</a>
   </div>
 
   <div class="screen" id="readerScreen" hidden>
@@ -771,6 +770,13 @@ button{font:inherit}
 
     <footer class="reader-footer">𝙼𝙰𝙳𝙴 𝙱𝚈 𝚁𝙸𝙵𝙰𝚃</footer>
   </div>
+
+  <!-- FLOATING CAPTION SWITCH: kept outside animated screens -->
+  <a href="caption.html"
+     class="caption-switch"
+     aria-label="Open Caption Page">
+    <i class="fa-solid fa-repeat"></i>
+  </a>
 
 </main>
 
@@ -1036,14 +1042,17 @@ function typePoem(text) {
   step();
 }
 
-function showFolders(restoreScroll = true) {
+function showFolders(restoreScroll = true, animate = true) {
   stopTyping();
   currentPoemId = null;
 
   readerScreen.hidden = true;
   folderScreen.hidden = false;
 
-  animateScreen(folderScreen, true);
+  // Do not animate the whole folder screen during the initial Firebase load.
+  if (animate) {
+    animateScreen(folderScreen, true);
+  }
 
   requestAnimationFrame(() => {
     window.scrollTo({
@@ -1095,13 +1104,13 @@ function openPoem(id, addHistory) {
   }
 }
 
-function restoreRouteFromHash() {
+function restoreRouteFromHash(skipFolderAnimation = false) {
   const match = location.hash.match(/^#poem=(.+)$/);
 
   if (match) {
     openPoem(decodeURIComponent(match[1]), false);
   } else {
-    showFolders(true);
+    showFolders(true, !skipFolderAnimation);
   }
 }
 
@@ -1113,7 +1122,7 @@ document.getElementById("readerBack").addEventListener("click", () => {
   }
 });
 
-window.addEventListener("popstate", restoreRouteFromHash);
+window.addEventListener("popstate", () => restoreRouteFromHash(false));
 
 function getCurrentPoem() {
   return poemsCache.find((item, i) =>
@@ -1250,12 +1259,16 @@ async function loadPoems() {
     );
 
     renderPoems();
-    restoreRouteFromHash();
+    // Initial Firebase render should not animate the full folder page.
+    restoreRouteFromHash(true);
 
   } catch (error) {
     console.error("Firebase poems load failed:", error);
     loadFailed = true;
     renderPoems();
+  } finally {
+    // Show social accounts and footer credit only after Firebase loading finishes.
+    document.querySelector(".footer").hidden = false;
   }
 }
 
